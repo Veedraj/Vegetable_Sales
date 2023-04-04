@@ -3,6 +3,7 @@ package com.vegetable.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,25 +17,29 @@ enum Status{
 }
 
 @Entity
-@Table(name = "Order")
+@Table( name = "orders")
 public class Order implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name="order_id")
+	private long orderId;
 	
 	@NotNull
 	@NotBlank
+	@Column(name="billing_date")
 	private LocalDate billingDate;
 	
 	@NotNull
 	@NotBlank
+	@Column(name="billing_amount")
 	private Double billingAmount;
 	
 	@NotNull
 	@NotBlank
+	@Column(name="status")
 	private Status status;
 	
 	public Order() {
@@ -73,12 +78,12 @@ public class Order implements Serializable{
 	}
 	
 	public Long getId() {
-		return id;
+		return orderId;
 	}
 	
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount + ", status="
+		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount + ", status="
 				+ status + "]";
 	}
 	

@@ -19,7 +19,7 @@ import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.service.OrderService;
 
 @RestController
-@RequestMapping("order_section")
+@RequestMapping("/order_section")
 public class OrderController{
 
 	@Autowired
