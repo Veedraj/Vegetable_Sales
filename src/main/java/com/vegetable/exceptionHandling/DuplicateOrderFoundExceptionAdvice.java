@@ -11,20 +11,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.OrderNotFoundException;
 
 @RestControllerAdvice
-public class OrderControllerAdvice {
-	
-	@ExceptionHandler(OrderNotFoundException.class)
-	public ResponseEntity<String> orderExceptionHandler(OrderNotFoundException e) {
+public class DuplicateOrderFoundExceptionAdvice {
+
+	@ExceptionHandler(DuplicateOrderFoundException.class)
+	public ResponseEntity<String> orderExceptionHandler(DuplicateOrderFoundException e) {
 
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationsExceptionsForOrders(MethodArgumentNotValidException e) {
+	public Map<String, String> handleValidationsExceptionsForOrdersNotFound(MethodArgumentNotValidException e) {
 		Map<String, String> errors = new HashMap<String, String>();
 		e.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
@@ -33,4 +34,5 @@ public class OrderControllerAdvice {
 		});
 		return errors;
 	}
+
 }
