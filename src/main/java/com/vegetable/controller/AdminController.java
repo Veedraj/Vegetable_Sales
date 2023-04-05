@@ -50,7 +50,7 @@ public class AdminController {
 		return new ResponseEntity<Product>(adminService.updateProduct(product), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("delete/products")
+	@DeleteMapping("delete/products/{productId}")
 	public ResponseEntity<List<Product>> deleteProductById(@PathVariable("productId") Long productId) throws ProductNotFoundException{
 		List<Product> productList = adminService.deleteProductById(productId);
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
