@@ -2,6 +2,8 @@ package com.vegetable.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.entity.Order;
+import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.service.OrderService;
 
@@ -26,20 +29,20 @@ public class OrderController{
 	private OrderService orderService;
 	
 	@PostMapping("/order")
-	public ResponseEntity<Order> postOrder(@RequestBody Order order){
+	public ResponseEntity<Order> postOrder(@Valid @RequestBody Order order) throws DuplicateOrderFoundException{
 		Order o = orderService.createOrder(order);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);
 	}
 	
-	@PutMapping("/order")
-	public ResponseEntity<Order> putOrder(@RequestBody Order order) throws OrderNotFoundException{
-		Order o = orderService.updateOrder(order);
+	@PutMapping("/order/{orderId}")
+	public ResponseEntity<Order> putOrder(@Valid @RequestBody Order order,@PathVariable("orderId")Long orderId) throws OrderNotFoundException{
+		Order o = orderService.updateOrder(order,orderId);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/order")
-	public ResponseEntity<Order> deleteOrder(@RequestBody Order order) throws OrderNotFoundException{
-		Order o = orderService.deleteOrder(order);
+	@DeleteMapping("/order/{orderId}")
+	public ResponseEntity<Order> deleteOrder(@PathVariable("orderId")Long orderId) throws OrderNotFoundException{
+		Order o = orderService.deleteOrder(orderId);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);
 	}
 	

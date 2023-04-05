@@ -9,12 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-enum Status{
-	Success, Fail
-}
 
 @Entity
 @Table( name = "orders")
@@ -28,17 +24,14 @@ public class Order implements Serializable{
 	private long orderId;
 	
 	@NotNull
-	@NotBlank
 	@Column(name="billing_date")
 	private LocalDate billingDate;
 	
 	@NotNull
-	@NotBlank
 	@Column(name="billing_amount")
 	private Double billingAmount;
 	
 	@NotNull
-	@NotBlank
 	@Column(name="status")
 	private Status status;
 	
