@@ -1,14 +1,13 @@
 package com.vegetable.exception;
 
-public class InvalidProductDetailsException extends Exception {
+public class ProductAlreadyExistException extends Exception {
 
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public InvalidProductDetailsException(String message) {
+	public ProductAlreadyExistException(String message) {
 		super(message);
 	}
 }

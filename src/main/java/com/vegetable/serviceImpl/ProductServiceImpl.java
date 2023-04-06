@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vegetable.entity.Product;
-import com.vegetable.exception.InvalidProductDetailsException;
+import com.vegetable.exception.ProductAlreadyExistException;
 import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.repository.ProductRepository;
 import com.vegetable.service.ProductService;
@@ -18,11 +18,11 @@ public class ProductServiceImpl implements ProductService{
 	private ProductRepository productRepo;
 	
 	@Override
-	public Product addProduct(Product product)throws InvalidProductDetailsException {
+	public Product addProduct(Product product)throws ProductAlreadyExistException {
 		List<Product> findProduct = productRepo.findAll();
 		for(Product p: findProduct) {
 			if(p.getProductName().equals(product.getProductName())){
-				throw new InvalidProductDetailsException("Product already exist");
+				throw new ProductAlreadyExistException("Product already exist");
 			}
 		}
 		return productRepo.save(product);
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product updateProduct(Product product) throws InvalidProductDetailsException {
+	public Product updateProduct(Product product) throws ProductAlreadyExistException {
 		return productRepo.save(product);
 	}
 
