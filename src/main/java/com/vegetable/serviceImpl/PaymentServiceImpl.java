@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Payment;
+import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.repository.PaymentRepo;
 import com.vegetable.service.PaymentService;
 
@@ -32,7 +33,10 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Payment updatePayment(Payment payment) {
+	public Payment updatePayment(Payment payment) throws PaymentNotFoundException {
+		if(paymentRepo.findById(payment.getPaymentId()).isEmpty()) {
+			throw new PaymentNotFoundException("Payment Not Found with Id: "+payment.getPaymentId());
+		}
 		Payment updatedPayment = paymentRepo.save(payment);
 		return updatedPayment;
 	}

@@ -11,7 +11,7 @@ public interface CustomerService {
 
 	public Customer addCustomer(Customer customer) throws CustomerAlreadyExistsException;
 
-	public Customer updateCustomer(Customer customer);
+	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException ;
 
 	public Customer getCustomerById(Long customerId) throws CustomerNotFoundException;
 

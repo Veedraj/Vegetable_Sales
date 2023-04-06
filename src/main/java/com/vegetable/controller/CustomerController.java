@@ -2,6 +2,8 @@ package com.vegetable.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +34,12 @@ public class CustomerController {
 	}
 
 	@PostMapping("/customer")
-	public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) throws CustomerAlreadyExistsException {
+	public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) throws CustomerAlreadyExistsException {
 		return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.OK);
 	}
 
 	@PutMapping("/customer")
-	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) throws CustomerNotFoundException {
 		return new ResponseEntity<Customer>(customerService.updateCustomer(customer), HttpStatus.OK);
 	}
 
