@@ -2,6 +2,8 @@ package com.vegetable.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.entity.Payment;
+import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.service.PaymentService;
 
 @RestController
@@ -30,12 +33,12 @@ public class PaymentController {
 	}
 
 	@PostMapping("/payment")
-	public ResponseEntity<Payment> addPayment(@RequestBody Payment payment) {
+	public ResponseEntity<Payment> addPayment(@Valid @RequestBody Payment payment) {
 		return new ResponseEntity<Payment>(paymentService.addPayment(payment), HttpStatus.OK);
 	}
 
 	@PutMapping("/payment")
-	public ResponseEntity<Payment> updatePayment(@RequestBody Payment payment) {
+	public ResponseEntity<Payment> updatePayment(@Valid @RequestBody Payment payment) throws PaymentNotFoundException {
 		return new ResponseEntity<Payment>(paymentService.updatePayment(payment), HttpStatus.OK);
 	}
 

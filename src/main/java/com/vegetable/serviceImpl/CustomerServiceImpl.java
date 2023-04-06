@@ -41,7 +41,10 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer updateCustomer(Customer customer) {
+	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException {
+		if(customerRepo.findById(customer.getCustomerId()).isEmpty()) {
+			throw new CustomerNotFoundException("Customer Not Found With Id :"+customer.getCustomerId());
+		}
 		Customer updatedCustomer = customerRepo.save(customer);
 		return updatedCustomer;
 	}
