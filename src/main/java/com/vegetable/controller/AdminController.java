@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vegetable.entity.Customer;
 import com.vegetable.entity.Order;
 import com.vegetable.entity.Product;
+import com.vegetable.exception.CustomerNotFoundException;
+import com.vegetable.exception.InvalidProductDetailsException;
 import com.vegetable.exception.OrderNotFoundException;
-import com.vegetable.exception.ProductAlreadyExistException;
 import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.service.AdminService;
+import com.vegetable.service.CustomerService;
 
 @RestController
 @RequestMapping("/admin")
@@ -26,6 +29,7 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+
 	
 	@GetMapping("/view/orders")
 	public List<Order> allOrders() throws OrderNotFoundException
@@ -46,7 +50,7 @@ public class AdminController {
 	}
 	
 	@PutMapping("update/products")
-	public ResponseEntity<Product> updateproduct(@RequestBody Product product) throws ProductAlreadyExistException{
+	public ResponseEntity<Product> updateproduct(@RequestBody Product product) throws InvalidProductDetailsException{
 		return new ResponseEntity<Product>(adminService.updateProduct(product), HttpStatus.OK);
 	}
 	
@@ -54,5 +58,11 @@ public class AdminController {
 	public ResponseEntity<List<Product>> deleteProductById(@PathVariable("productId") Long productId) throws ProductNotFoundException{
 		List<Product> productList = adminService.deleteProductById(productId);
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/view/customers")
+	public List<Customer> allCustomers() throws CustomerNotFoundException
+	{
+		return adminService.allCustomers();
 	}
 }
