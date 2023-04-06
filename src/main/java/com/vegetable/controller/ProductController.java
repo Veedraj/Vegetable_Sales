@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.entity.Product;
-import com.vegetable.exception.InvalidProductDetailsException;
+import com.vegetable.exception.ProductAlreadyExistException;
 import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.service.ProductService;
 
@@ -27,7 +27,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@PostMapping("/product")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) throws InvalidProductDetailsException{
+	public ResponseEntity<Product> addProduct(@RequestBody Product product) throws ProductAlreadyExistException{
 		return new ResponseEntity<Product>(productService.addProduct(product), HttpStatus.OK);
 	}
 
@@ -47,7 +47,7 @@ public class ProductController {
 	}
 
 	@PutMapping("/product")
-	public ResponseEntity<Product> updateproduct(@RequestBody Product product) throws InvalidProductDetailsException{
+	public ResponseEntity<Product> updateproduct(@RequestBody Product product) throws ProductAlreadyExistException{
 		return new ResponseEntity<Product>(productService.updateProduct(product), HttpStatus.OK);
 	}
 

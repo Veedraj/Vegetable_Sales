@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.vegetable.entity.Order;
 import com.vegetable.entity.Product;
-import com.vegetable.exception.InvalidProductDetailsException;
 import com.vegetable.exception.OrderNotFoundException;
+import com.vegetable.exception.ProductAlreadyExistException;
 import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.repository.OrderRepository;
 import com.vegetable.repository.ProductRepository;
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
 
 
 	@Override
-	public Product updateProduct(Product product) throws InvalidProductDetailsException {
+	public Product updateProduct(Product product) throws ProductAlreadyExistException {
 		return productRepository.save(product);
 	}
 

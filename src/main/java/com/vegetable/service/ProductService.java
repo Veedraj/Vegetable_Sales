@@ -3,12 +3,12 @@ package com.vegetable.service;
 import java.util.List;
 
 import com.vegetable.entity.Product;
-import com.vegetable.exception.InvalidProductDetailsException;
+import com.vegetable.exception.ProductAlreadyExistException;
 import com.vegetable.exception.ProductNotFoundException;
 
 public interface ProductService {
 
-	public Product addProduct(Product product) throws InvalidProductDetailsException;
+	public Product addProduct(Product product) throws ProductAlreadyExistException;
 	
 	public List<Product> getAllProducts();
 	
@@ -16,7 +16,7 @@ public interface ProductService {
 	
 	public List<Product> getProductByName(String productName)throws ProductNotFoundException ;
 	
-	public Product updateProduct(Product product)throws InvalidProductDetailsException;
+	public Product updateProduct(Product product)throws ProductAlreadyExistException;
 	
 	public List<Product> deleteProductById(Long productId) throws ProductNotFoundException;
 }
