@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vegetable.entity.Customer;
 import com.vegetable.entity.Order;
 import com.vegetable.entity.Product;
+import com.vegetable.exception.CustomerNotFoundException;
+import com.vegetable.exception.InvalidProductDetailsException;
 import com.vegetable.exception.OrderNotFoundException;
-import com.vegetable.exception.ProductAlreadyExistException;
 import com.vegetable.exception.ProductNotFoundException;
+import com.vegetable.repository.CustomerRepository;
 import com.vegetable.repository.OrderRepository;
 import com.vegetable.repository.ProductRepository;
 import com.vegetable.service.AdminService;
@@ -22,6 +25,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	ProductRepository productRepository;
+	
+	@Autowired
+	CustomerRepository customerRepository;
 	
 	@Override
 	public List<Order> allOrders() throws OrderNotFoundException {
@@ -51,7 +57,7 @@ public class AdminServiceImpl implements AdminService {
 
 
 	@Override
-	public Product updateProduct(Product product) throws ProductAlreadyExistException {
+	public Product updateProduct(Product product) throws InvalidProductDetailsException {
 		return productRepository.save(product);
 	}
 
@@ -64,6 +70,18 @@ public class AdminServiceImpl implements AdminService {
 		}catch (Exception e){
 			throw new ProductNotFoundException("No such product found");
 		}
+	}
+
+
+	@Override
+	public List<Customer> allCustomers() throws CustomerNotFoundException {
+		return customerRepository.findAll();
+	}
+
+
+	@Override
+	public Customer updateCustomer(Customer customer) {
+		return customerRepository.save(customer);
 	}
 
 	

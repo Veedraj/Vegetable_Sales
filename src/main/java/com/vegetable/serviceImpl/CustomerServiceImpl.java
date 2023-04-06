@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import com.vegetable.entity.Customer;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;
-import com.vegetable.repository.CustomerRepo;
+import com.vegetable.repository.CustomerRepository;
 import com.vegetable.service.CustomerService;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
-	private CustomerRepo customerRepo;
+	private CustomerRepository customerRepo;
 
 	@Override
 	public List<Customer> getAllCustomers() {
