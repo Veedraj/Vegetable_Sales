@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.vegetable.entity.Payment;
 import com.vegetable.exception.PaymentNotFoundException;
-import com.vegetable.repository.PaymentRepo;
+import com.vegetable.repository.PaymentRepository;
 import com.vegetable.service.PaymentService;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
-	private PaymentRepo paymentRepo;
+	private PaymentRepository paymentRepo;
 
 	@Override
 	public List<Payment> getAllPayments() {
