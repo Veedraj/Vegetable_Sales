@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Payment;
+import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.service.PaymentService;
 
 @RestController
@@ -36,7 +37,7 @@ public class PaymentController {
 	}
 
 	@PutMapping("/payment")
-	public ResponseEntity<Payment> updatePayment(@RequestBody Payment payment) {
+	public ResponseEntity<Payment> updatePayment(@RequestBody Payment payment) throws PaymentNotFoundException {
 		return new ResponseEntity<Payment>(paymentService.updatePayment(payment), HttpStatus.OK);
 	}
 
