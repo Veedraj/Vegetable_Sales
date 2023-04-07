@@ -18,7 +18,6 @@ import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;
 import com.vegetable.entity.Product;
 import com.vegetable.exception.CustomerNotFoundException;
-import com.vegetable.exception.InvalidProductDetailsException;
 import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.exception.ProductNotFoundException;
@@ -52,7 +51,7 @@ public class AdminController {
 	}
 	
 	@PutMapping("update/products/{productId}")
-	public ResponseEntity<Product> updateproduct(@RequestBody Product productId) throws InvalidProductDetailsException{
+	public ResponseEntity<Product> updateproduct(@RequestBody Product productId){
 		return new ResponseEntity<Product>(adminService.updateProductById(productId), HttpStatus.OK);
 	}
 	
