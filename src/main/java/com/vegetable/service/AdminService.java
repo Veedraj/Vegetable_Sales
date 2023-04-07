@@ -9,7 +9,6 @@ import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;
 import com.vegetable.entity.Product;
 import com.vegetable.exception.CustomerNotFoundException;
-import com.vegetable.exception.InvalidProductDetailsException;
 import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.exception.ProductNotFoundException;
@@ -22,7 +21,7 @@ public interface AdminService {
 	
 	public List<Product> allProducts() throws ProductNotFoundException;
 
-	public Product updateProductById(Product product) throws InvalidProductDetailsException;
+	public Product updateProductById(Product product);
 
 	public List<Product> deleteProductById(Long productId)throws ProductNotFoundException;
 	

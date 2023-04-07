@@ -13,7 +13,6 @@ import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;
 import com.vegetable.entity.Product;
 import com.vegetable.exception.CustomerNotFoundException;
-import com.vegetable.exception.InvalidProductDetailsException;
 import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.exception.ProductNotFoundException;
@@ -66,7 +65,7 @@ public class AdminServiceImpl implements AdminService {
 
 
 	@Override
-	public Product updateProductById(Product productId) throws InvalidProductDetailsException {
+	public Product updateProductById(Product productId) {
 		return productRepository.save(productId);
 	}
 
