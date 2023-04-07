@@ -1,10 +1,14 @@
 package com.vegetable.serviceImpl;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Payment;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.repository.PaymentRepository;
@@ -23,9 +27,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Payment addPayment(Payment payment) {
-		Payment newPayment = paymentRepo.save(payment);
-		return newPayment;
+	public Payment addPayment(PaymentDTO payment) {
+		Payment newPayment = new Payment(0l, LocalDate.now(), LocalTime.now(), payment.getType());
+		return paymentRepo.save(newPayment);
 	}
 
 	@Override
