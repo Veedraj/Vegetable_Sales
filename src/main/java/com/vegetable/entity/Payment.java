@@ -17,7 +17,7 @@ public class Payment {
 	@NotNull(message = "Payment date cannot be null.")
 	private LocalDate paymentDate;
 	@NotNull(message = "Payment time cannot be null.")
-	private String paymentTime;
+	private LocalTime paymentTime;
 	@NotNull(message = "Payment type cannot be null.")
 	private Type paymentType;
 
@@ -25,7 +25,7 @@ public class Payment {
 		super();
 	}
 
-	public Payment(Long paymentId, LocalDate paymentDate, String paymentTime, Type paymentType) {
+	public Payment(Long paymentId, LocalDate paymentDate, LocalTime paymentTime, Type paymentType) {
 		super();
 		this.paymentId = paymentId;
 		this.paymentDate = paymentDate;
@@ -49,11 +49,11 @@ public class Payment {
 		this.paymentDate = paymentDate;
 	}
 
-	public String getPaymentTime() {
+	public LocalTime getPaymentTime() {
 		return paymentTime;
 	}
 
-	public void setPaymentTime(String paymentTime) {
+	public void setPaymentTime(LocalTime paymentTime) {
 		this.paymentTime = paymentTime;
 	}
 
