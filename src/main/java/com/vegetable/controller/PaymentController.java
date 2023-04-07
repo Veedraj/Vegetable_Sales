@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Payment;
 import com.vegetable.service.PaymentService;
 
@@ -30,7 +31,7 @@ public class PaymentController {
 	}
 
 	@PostMapping("/payment")
-	public ResponseEntity<Payment> addPayment(@RequestBody Payment payment) {
+	public ResponseEntity<Payment> addPayment(@RequestBody PaymentDTO payment) {
 		return new ResponseEntity<Payment>(paymentService.addPayment(payment), HttpStatus.OK);
 	}
 

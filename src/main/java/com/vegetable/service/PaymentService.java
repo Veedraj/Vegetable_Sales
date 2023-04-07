@@ -2,12 +2,13 @@ package com.vegetable.service;
 
 import java.util.List;
 
+import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Payment;
 
 public interface PaymentService {
 	public List<Payment> getAllPayments();
 
-	public Payment addPayment(Payment payment);
+	public Payment addPayment(PaymentDTO payment);
 
 	public Payment updatePayment(Payment payment);
 
