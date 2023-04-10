@@ -53,13 +53,14 @@ public class Order {
 	}
 
 	public Order(long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount, @NotNull Status status,
-			Customer customer) {
+			Customer customer, Payment payment) {
 		super();
 		this.orderId = orderId;
 		this.billingDate = billingDate;
 		this.billingAmount = billingAmount;
 		this.status = status;
 		this.customer = customer;
+		this.payment = payment;
 	}
 
 	public long getOrderId() {
@@ -102,10 +103,18 @@ public class Order {
 		this.customer = customer;
 	}
 
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount
-				+ ", status=" + status + ", customer=" + customer + "]";
+				+ ", status=" + status + ", customer=" + customer + ", payment=" + payment + "]";
 	}
 
 }
