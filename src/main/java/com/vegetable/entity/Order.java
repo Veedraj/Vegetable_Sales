@@ -24,7 +24,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
-	private long orderId;
+	private Long orderId;
 
 	@NotNull
 	@Column(name = "billing_date")
@@ -33,10 +33,6 @@ public class Order {
 	@NotNull
 	@Column(name = "billing_amount")
 	private Double billingAmount;
-
-	@NotNull
-	@Column(name = "status")
-	private Status status;
 
 	@JsonBackReference
 	@ManyToOne
@@ -52,22 +48,21 @@ public class Order {
 		super();
 	}
 
-	public Order(long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount, @NotNull Status status,
-			Customer customer, Payment payment) {
+	public Order(Long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount, Customer customer,
+			Payment payment) {
 		super();
 		this.orderId = orderId;
 		this.billingDate = billingDate;
 		this.billingAmount = billingAmount;
-		this.status = status;
 		this.customer = customer;
 		this.payment = payment;
 	}
 
-	public long getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
@@ -85,14 +80,6 @@ public class Order {
 
 	public void setBillingAmount(Double billingAmount) {
 		this.billingAmount = billingAmount;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
 	}
 
 	public Customer getCustomer() {
@@ -114,7 +101,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount
-				+ ", status=" + status + ", customer=" + customer + ", payment=" + payment + "]";
+				+ ", customer=" + customer + ", payment=" + payment + "]";
 	}
 
 }
