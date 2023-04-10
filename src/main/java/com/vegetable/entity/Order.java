@@ -31,19 +31,14 @@ public class Order implements Serializable{
 	@Column(name="billing_amount")
 	private Double billingAmount;
 	
-	@NotNull
-	@Column(name="status")
-	private Status status;
-	
 	public Order() {
 		super();
 	}
 
-	public Order(LocalDate billingDate, Double billingAmount, Status status) {
+	public Order(LocalDate billingDate, Double billingAmount) {
 		super();
 		this.billingDate = billingDate;
 		this.billingAmount = billingAmount;
-		this.status = status;
 	}
 
 	public LocalDate getBillingDate() {
@@ -61,14 +56,6 @@ public class Order implements Serializable{
 	public void setBillingAmount(Double billingAmount) {
 		this.billingAmount = billingAmount;
 	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
 	
 	public Long getId() {
 		return orderId;
@@ -76,8 +63,7 @@ public class Order implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount + ", status="
-				+ status + "]";
+		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount + "]";
 	}
 	
 }

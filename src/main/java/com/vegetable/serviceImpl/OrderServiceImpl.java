@@ -23,11 +23,10 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Order createOrder(OrderDTO order) throws DuplicateOrderFoundException {
 		List<Order> list = this.getAllOrders();
-		Order o = new Order(LocalDate.now(),order.getBillingAmount(),order.getStatus());
+		Order o = new Order(LocalDate.now(),order.getBillingAmount());
 		for(Order l : list) {
 			if(l.getBillingDate().equals(o.getBillingDate()) 
-					&& l.getBillingAmount().equals(o.getBillingAmount())
-					&& l.getStatus().equals(o.getStatus())) {
+					&& l.getBillingAmount().equals(o.getBillingAmount())) {
 				throw new DuplicateOrderFoundException("Duplicate Order Found...");
 			}
 		}
@@ -38,7 +37,6 @@ public class OrderServiceImpl implements OrderService{
 	public Order updateOrder(OrderDTO order,Long orderId) throws OrderNotFoundException {
 		Order o = getOrderById(orderId);
 		o.setBillingAmount(order.getBillingAmount());
-		o.setStatus(order.getStatus());
 		return orderRepository.save(o);
 	}
 

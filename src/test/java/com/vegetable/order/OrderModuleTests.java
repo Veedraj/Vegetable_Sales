@@ -14,7 +14,6 @@ import com.vegetable.entity.Order;
 import com.vegetable.entity.Status;
 import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.OrderNotFoundException;
-import com.vegetable.repository.OrderRepository;
 import com.vegetable.service.OrderService;
 
 @SpringBootTest
@@ -28,7 +27,6 @@ public class OrderModuleTests {
 		OrderDTO orderDTO = new OrderDTO(100.0, Status.Success);
 		Order order = this.orderService.createOrder(orderDTO);
 		assertEquals(orderDTO.getBillingAmount(), order.getBillingAmount());
-		assertEquals(orderDTO.getStatus(), order.getStatus());
 	}
 	
 	@Test
@@ -37,7 +35,6 @@ public class OrderModuleTests {
 		Long orderId = 1L;
 		Order order = this.orderService.updateOrder(orderDTO,orderId);
 		assertEquals(orderDTO.getBillingAmount(), order.getBillingAmount());
-		assertEquals(orderDTO.getStatus(), order.getStatus());
 	}
 	
 	@Test
@@ -46,7 +43,6 @@ public class OrderModuleTests {
 		Order order = this.orderService.createOrder(orderDTO);
 		Order deletedOrder = this.orderService.deleteOrder(order.getId());
 		assertEquals(deletedOrder.getBillingAmount(), order.getBillingAmount());
-		assertEquals(deletedOrder.getStatus(), order.getStatus());
 	}
 	
 	@Test
