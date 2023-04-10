@@ -43,13 +43,15 @@ public class Order {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "payment_id")
 	private Payment payment;
+	
+	private Type type;
 
 	public Order() {
 		super();
 	}
 
 	public Order(Long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount, Customer customer,
-			Payment payment) {
+			Payment payment,Type type) {
 		super();
 		this.orderId = orderId;
 		this.billingDate = billingDate;
