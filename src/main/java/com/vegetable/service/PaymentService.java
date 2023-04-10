@@ -18,5 +18,5 @@ public interface PaymentService {
 
 	public List<Payment> deletePayment(Long paymentId);
 
-	public Order convertOrderToPayment(PaymentDTO payment);
+	public Order convertOrderToPayment(PaymentDTO payment, Long customerId);
 }

@@ -54,12 +54,11 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Order convertOrderToPayment(PaymentDTO payment) {
+	public Order convertOrderToPayment(PaymentDTO payment, Long customerId) {
 		Payment newPayment = new Payment();
 		newPayment.setPaymentDate(LocalDate.now());
 		newPayment.setPaymentTime(LocalTime.now());
 		newPayment.setPaymentType(payment.getType());
 		return null;
-
 	}
 }
