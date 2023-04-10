@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;
+import com.vegetable.exception.CustomerNotFoundException;
+import com.vegetable.exception.EmptyCartException;
 import com.vegetable.exception.PaymentNotFoundException;
+import com.vegetable.repository.OrderRepository;
 import com.vegetable.repository.PaymentRepository;
+import com.vegetable.service.OrderService;
 import com.vegetable.service.PaymentService;
 
 @Service
@@ -19,6 +23,12 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
 	private PaymentRepository paymentRepo;
+
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private OrderRepository orderRepository;
 
 	@Override
 	public List<Payment> getAllPayments() {
@@ -54,11 +64,14 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Order convertOrderToPayment(PaymentDTO payment, Long customerId) {
+	public Order convertOrderToPayment(PaymentDTO payment, Long customerId)
+			throws CustomerNotFoundException, EmptyCartException {
 		Payment newPayment = new Payment();
 		newPayment.setPaymentDate(LocalDate.now());
 		newPayment.setPaymentTime(LocalTime.now());
 		newPayment.setPaymentType(payment.getType());
-		return null;
+		Order order = orderService.convertCartToOrder(customerId);
+		order.setPayment(newPayment);
+		return orderRepository.save(order);
 	}
 }
