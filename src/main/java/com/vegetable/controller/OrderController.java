@@ -16,38 +16,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vegetable.dto.OrderDTO;
 import com.vegetable.entity.Order;
 import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.service.OrderService;
 
 @RestController
-@RequestMapping("/order_section")
+@RequestMapping("/order-section")
 public class OrderController{
 
 	@Autowired
 	private OrderService orderService;
 	
 	@PostMapping("/order")
-	public ResponseEntity<Order> postOrder(@Valid @RequestBody Order order) throws DuplicateOrderFoundException{
+	public ResponseEntity<Order> postOrder(@Valid @RequestBody OrderDTO order) throws DuplicateOrderFoundException{
 		Order o = orderService.createOrder(order);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);
 	}
 	
-	@PutMapping("/order/{orderId}")
-	public ResponseEntity<Order> putOrder(@Valid @RequestBody Order order,@PathVariable("orderId")Long orderId) throws OrderNotFoundException{
+	@PutMapping("/order/{order-id}")
+	public ResponseEntity<Order> putOrder(@Valid @RequestBody OrderDTO order,@PathVariable("order-id")Long orderId) throws OrderNotFoundException{
 		Order o = orderService.updateOrder(order,orderId);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/order/{orderId}")
-	public ResponseEntity<Order> deleteOrder(@PathVariable("orderId")Long orderId) throws OrderNotFoundException{
+	@DeleteMapping("/order/{order-id}")
+	public ResponseEntity<Order> deleteOrder(@PathVariable("order-id")Long orderId) throws OrderNotFoundException{
 		Order o = orderService.deleteOrder(orderId);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);
 	}
 	
-	@GetMapping("/order/{orderId}")
-	public ResponseEntity<Order> postOrder(@PathVariable("orderId") Long orderId) throws OrderNotFoundException{
+	@GetMapping("/order/{order-id}")
+	public ResponseEntity<Order> postOrder(@PathVariable("order-id") Long orderId) throws OrderNotFoundException{
 		Order o = orderService.getOrderById(orderId);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);
 	}

@@ -20,7 +20,7 @@ import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.service.ProductService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/product-section")
 public class ProductController {
 
 	@Autowired
@@ -31,18 +31,18 @@ public class ProductController {
 		return new ResponseEntity<Product>(productService.addProduct(product), HttpStatus.OK);
 	}
 
-	@GetMapping("/product")
+	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getAllProducts() {
 		return new ResponseEntity<List<Product>>(productService.getAllProducts(), HttpStatus.OK);
 	}
 
-	@GetMapping("/product/ById/{productId}")
-	public ResponseEntity<Product> getProductById(@PathVariable("productId") Long productId) throws ProductNotFoundException{
+	@GetMapping("/product/{product-id}")
+	public ResponseEntity<Product> getProductById(@PathVariable("product-id") Long productId) throws ProductNotFoundException{
 		return new ResponseEntity<Product>(productService.getProductById(productId), HttpStatus.OK);
 	}
 
-	@GetMapping("/product/ByName/{productName}")
-	public ResponseEntity<List<Product>> getProductByName(@PathVariable("productName") String productName) throws ProductNotFoundException{
+	@GetMapping("/product/by-name/{product-name}")
+	public ResponseEntity<List<Product>> getProductByName(@PathVariable("product-name") String productName) throws ProductNotFoundException{
 		return new ResponseEntity<List<Product>>(productService.getProductByName(productName), HttpStatus.OK);
 	}
 
@@ -51,8 +51,8 @@ public class ProductController {
 		return new ResponseEntity<Product>(productService.updateProduct(product), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/product/{productId}")
-	public ResponseEntity<List<Product>> deleteProductById(@PathVariable("productId") Long productId) throws ProductNotFoundException{
+	@DeleteMapping("/product/{product-id}")
+	public ResponseEntity<List<Product>> deleteProductById(@PathVariable("product-id") Long productId) throws ProductNotFoundException{
 		List<Product> productList = productService.deleteProductById(productId);
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}

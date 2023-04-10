@@ -19,49 +19,49 @@ import com.vegetable.service.CartService;
 
 //@CrossOrigin(value = "http://localhost:4200/")
 @RestController
-@RequestMapping("/api/v1/cart")
+@RequestMapping("/cart-section")
 
 public class CartController {
 
 	@Autowired
 	private CartService cartService;
 
-	@GetMapping("/{cartId}")
-	public ResponseEntity<Cart> getCartById(@PathVariable("cartId") Long cartId) throws CartNotFoundException {
+	@GetMapping("/{cart-id}")
+	public ResponseEntity<Cart> getCartById(@PathVariable("cart-id") Long cartId) throws CartNotFoundException {
 		Cart cart = cartService.getCartById(cartId);
 		return ResponseEntity.ok(cart);
 	}
 
-	@PostMapping("addCart")
+	@PostMapping("add-cart")
 	public ResponseEntity<Cart> addCart() {
 		Cart cart = cartService.createCart();
 		return ResponseEntity.ok(cart);
 	}
 	
-	@PostMapping("addToCart/{cartId}/{productId}")
-	public ResponseEntity<Cart> addToCart(@PathVariable("cartId") Long cartId, @PathVariable("productId") Long productId)
+	@PostMapping("add-to-cart/{cart-id}/{product-id}")
+	public ResponseEntity<Cart> addToCart(@PathVariable("cart-id") Long cartId, @PathVariable("product-id") Long productId)
 			throws CartNotFoundException, InvalidCartItemDataException {
 		Cart cart = cartService.addToCart(cartId, productId);
 		return ResponseEntity.ok(cart);
 	}
 
-	@PostMapping("/{cartId}/{cartItemId}")
-	public ResponseEntity<Cart> increaseQuantity(@PathVariable("cartId") Long cartId,
-			@PathVariable("cartItemId") Long cartItemId)
+	@PostMapping("/{cart-id}/{cart-item-id}")
+	public ResponseEntity<Cart> increaseQuantity(@PathVariable("cart-id") Long cartId,
+			@PathVariable("cart-item-id") Long cartItemId)
 			throws InvalidCartItemDataException, CartNotFoundException, CartItemDoesNotExistsException {
 		Cart cart = cartService.increaseQuantity(cartId, cartItemId);
 		return ResponseEntity.ok(cart);
 	}
 
-	@DeleteMapping("/{cartId}/{cartItemId}")
-	public ResponseEntity<Cart> removeFromCart(@PathVariable("cartId") Long cartId,
-			@PathVariable("cartItemId") Long cartItemId) throws CartNotFoundException, CartItemDoesNotExistsException {
+	@DeleteMapping("/{cart-id}/{cart-item-id}")
+	public ResponseEntity<Cart> removeFromCart(@PathVariable("cart-id") Long cartId,
+			@PathVariable("cart-item-id") Long cartItemId) throws CartNotFoundException, CartItemDoesNotExistsException {
 		Cart cart = cartService.removeFromCart(cartId, cartItemId);
 		return ResponseEntity.ok(cart);
 	}
 
-	@DeleteMapping("/{cartId}")
-	public ResponseEntity<Cart> removeAllFromCart(@PathVariable("cartId") Long cartId) throws CartNotFoundException {
+	@DeleteMapping("/{cart-id}")
+	public ResponseEntity<Cart> removeAllFromCart(@PathVariable("cart-id") Long cartId) throws CartNotFoundException {
 		Cart cart = cartService.removeAllFromCart(cartId);
 		return ResponseEntity.ok(cart);
 	}

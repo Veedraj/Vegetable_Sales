@@ -16,24 +16,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Payment;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.service.PaymentService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/payment-section")
 public class PaymentController {
 
 	@Autowired
 	private PaymentService paymentService;
 
-	@GetMapping("/payment")
+	@GetMapping("/payments")
 	public ResponseEntity<List<Payment>> getAllPayments() {
 		return new ResponseEntity<List<Payment>>(paymentService.getAllPayments(), HttpStatus.OK);
 	}
 
 	@PostMapping("/payment")
-	public ResponseEntity<Payment> addPayment(@Valid @RequestBody Payment payment) {
+	public ResponseEntity<Payment> addPayment(@Valid @RequestBody PaymentDTO payment) {
 		return new ResponseEntity<Payment>(paymentService.addPayment(payment), HttpStatus.OK);
 	}
 
@@ -42,13 +43,13 @@ public class PaymentController {
 		return new ResponseEntity<Payment>(paymentService.updatePayment(payment), HttpStatus.OK);
 	}
 
-	@GetMapping("payment/{paymentId}")
-	public ResponseEntity<Payment> getPaymentById(@PathVariable("paymentId") Long paymentId) {
+	@GetMapping("payment/{payment-id}")
+	public ResponseEntity<Payment> getPaymentById(@PathVariable("payment-id") Long paymentId) {
 		return new ResponseEntity<Payment>(paymentService.getPaymentById(paymentId), HttpStatus.OK);
 	}
 
-	@DeleteMapping("payment/{paymentId}")
-	public ResponseEntity<List<Payment>> deletePayment(@PathVariable("paymentId") Long paymentId) {
+	@DeleteMapping("payment/{payment-id}")
+	public ResponseEntity<List<Payment>> deletePayment(@PathVariable("payment-id") Long paymentId) {
 		List<Payment> paymentList = paymentService.deletePayment(paymentId);
 		return new ResponseEntity<List<Payment>>(paymentList, HttpStatus.OK);
 	}
