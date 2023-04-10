@@ -44,14 +44,12 @@ public class Order {
 	@JoinColumn(name = "payment_id")
 	private Payment payment;
 	
-	private Type type;
-
 	public Order() {
 		super();
 	}
 
 	public Order(Long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount, Customer customer,
-			Payment payment,Type type) {
+			Payment payment) {
 		super();
 		this.orderId = orderId;
 		this.billingDate = billingDate;
