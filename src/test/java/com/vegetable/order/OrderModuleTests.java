@@ -41,7 +41,7 @@ public class OrderModuleTests {
 	void deleteOrder() throws OrderNotFoundException, DuplicateOrderFoundException {
 		OrderDTO orderDTO = new OrderDTO(200.0, Status.Success);
 		Order order = this.orderService.createOrder(orderDTO);
-		Order deletedOrder = this.orderService.deleteOrder(order.getId());
+		Order deletedOrder = this.orderService.deleteOrder(order.getOrderId());
 		assertEquals(deletedOrder.getBillingAmount(), order.getBillingAmount());
 	}
 	
@@ -49,7 +49,7 @@ public class OrderModuleTests {
 	void getOrderById() throws OrderNotFoundException, DuplicateOrderFoundException {
 		OrderDTO orderDTO = new OrderDTO(500.0, Status.Success);
 		Order order = this.orderService.createOrder(orderDTO);
-		Order getOrderById = this.orderService.getOrderById(order.getId());
+		Order getOrderById = this.orderService.getOrderById(order.getOrderId());
 		assertNotNull(getOrderById);
 	}
 	

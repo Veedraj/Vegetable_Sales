@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerRepository customerRepo;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -77,24 +77,26 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepo.findAll();
 	}
 
-	
 	// login/registration module
 	@Override
 	public Customer registerCustomer(CustomerDTO cust) throws CustomerAlreadyExistsException {
-		if(this.customerRepo.findByCustomerEmail(cust.getCustomerEmail()) != null) {
-			throw new CustomerAlreadyExistsException("Customer Already Exists with Email Id: "+cust.getCustomerEmail());
+		if (this.customerRepo.findByCustomerEmail(cust.getCustomerEmail()) != null) {
+			throw new CustomerAlreadyExistsException(
+					"Customer Already Exists with Email Id: " + cust.getCustomerEmail());
 		}
-		Customer customer = new Customer(null, cust.getCustomerName(), cust.getCustomerEmail(), cust.getCustomerPhone(), cust.getCustomerPassword(), null, null, null);
+		Customer customer = new Customer(null, cust.getCustomerName(), cust.getCustomerEmail(), cust.getCustomerPhone(),
+				cust.getCustomerPassword(), null, null, null, new Cart(), new ArrayList<Order>());
 		return this.customerRepo.save(customer);
 	}
 
 	@Override
 	public Customer login(CustomerLoginDTO cust) throws CustomerNotFoundException, WrongPasswordException {
-		if(this.customerRepo.findByCustomerEmail(cust.getCustomerEmail()) == null) {
-			throw new CustomerNotFoundException("Customer Not Found With Email Id: "+cust.getCustomerEmail());
+		if (this.customerRepo.findByCustomerEmail(cust.getCustomerEmail()) == null) {
+			throw new CustomerNotFoundException("Customer Not Found With Email Id: " + cust.getCustomerEmail());
 		}
 		String encryptedPassword = this.bCryptPasswordEncoder.encode(cust.getCustomerPassword());
-		if(!this.customerRepo.findByCustomerEmail(cust.getCustomerEmail()).getCustomerPassword().equals(encryptedPassword)) {
+		if (!this.customerRepo.findByCustomerEmail(cust.getCustomerEmail()).getCustomerPassword()
+				.equals(encryptedPassword)) {
 			throw new WrongPasswordException("Invalid Credentials");
 		}
 		return this.customerRepo.findByCustomerEmail(cust.getCustomerEmail());

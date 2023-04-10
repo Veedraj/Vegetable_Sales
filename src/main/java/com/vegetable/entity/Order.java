@@ -24,7 +24,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
-	private long orderId;
+	private Long orderId;
 
 	@NotNull
 	@Column(name = "billing_date")
@@ -48,13 +48,22 @@ public class Order {
 		super();
 	}
 
-	public Order(LocalDate billingDate, Double billingAmount,Customer customer,Payment payment) {
+	public Order(Long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount, Customer customer,
+			Payment payment) {
 		super();
 		this.orderId = orderId;
-		this.customer = customer;
-		this.payment = payment;
 		this.billingDate = billingDate;
 		this.billingAmount = billingAmount;
+		this.customer = customer;
+		this.payment = payment;
+	}
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 
 	public LocalDate getBillingDate() {
@@ -72,18 +81,27 @@ public class Order {
 	public void setBillingAmount(Double billingAmount) {
 		this.billingAmount = billingAmount;
 	}
-	
-	public Long getId() {
-		return orderId;
+
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount + "]";
+		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount
+				+ ", customer=" + customer + ", payment=" + payment + "]";
 	}
 
 }
