@@ -72,12 +72,14 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepo.findAll();
 	}
 
+	
+	// login/registration module
 	@Override
 	public Customer registerCustomer(CustomerDTO cust) throws CustomerAlreadyExistsException {
 		if(this.customerRepo.findByCustomerEmail(cust.getCustomerEmail()) != null) {
 			throw new CustomerAlreadyExistsException("Customer Already Exists with Email Id: "+cust.getCustomerEmail());
 		}
-		Customer customer = new Customer(0l, cust.getCustomerName(), cust.getCustomerEmail(), cust.getCustomerPhone(), cust.getCustomerPassword(), null, null, null);
+		Customer customer = new Customer(null, cust.getCustomerName(), cust.getCustomerEmail(), cust.getCustomerPhone(), cust.getCustomerPassword(), null, null, null);
 		return this.customerRepo.save(customer);
 	}
 
