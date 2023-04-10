@@ -16,10 +16,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "cartItems")
 public class CartItem {
 
-//	@ManyToOne
-//	@JoinColumn(name="cartId")
-//	private Cart cart;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cartItemId;
@@ -42,13 +38,6 @@ public class CartItem {
 	@ManyToOne
 	@JoinColumn(name = "cartId")
 	private Cart cart;
-
-	@Override
-	public String toString() {
-		return "CartItem [cartItemId=" + cartItemId + ", cartItemName=" + cartItemName + ", cartItemPrice="
-				+ cartItemPrice + ", cartItemQuantity=" + cartItemQuantity + ", cartItemImage=" + cartItemImage
-				+ ", cart=" + cart + "]";
-	}
 
 	public CartItem() {
 		super();
@@ -113,6 +102,13 @@ public class CartItem {
 
 	public void setCartItemImage(String cartItemImage) {
 		this.cartItemImage = cartItemImage;
+	}
+
+	@Override
+	public String toString() {
+		return "CartItem [cartItemId=" + cartItemId + ", cartItemName=" + cartItemName + ", cartItemPrice="
+				+ cartItemPrice + ", cartItemQuantity=" + cartItemQuantity + ", cartItemImage=" + cartItemImage
+				+ ", cart=" + cart + "]";
 	}
 
 }

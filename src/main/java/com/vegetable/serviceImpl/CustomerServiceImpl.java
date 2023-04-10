@@ -1,11 +1,14 @@
 package com.vegetable.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vegetable.dto.CustomerDTO;
+import com.vegetable.entity.Cart;
 import com.vegetable.entity.Customer;
+import com.vegetable.entity.Order;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;
 import com.vegetable.repository.CustomerRepository;
@@ -38,7 +41,8 @@ public class CustomerServiceImpl implements CustomerService {
 			}
 		}
 		Customer newCustomer = new Customer(null, customer.getCustomerName(), customer.getCustomerEmail(),
-				customer.getCustomerPhone(), customer.getCustomerPassword(), null, null, null);
+				customer.getCustomerPhone(), customer.getCustomerPassword(), null, null, null, new Cart(),
+				new ArrayList<Order>());
 		return customerRepo.save(newCustomer);
 	}
 
