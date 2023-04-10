@@ -6,8 +6,17 @@ import com.vegetable.entity.Type;
 
 public class PaymentDTO {
 
-	@NotBlank(message="Type Should Not be Null or Blank")
+	@NotBlank(message = "Type Should Not be Null or Blank")
 	private Type type;
+
+	public PaymentDTO() {
+		super();
+	}
+
+	public PaymentDTO(@NotBlank(message = "Type Should Not be Null or Blank") Type type) {
+		super();
+		this.type = type;
+	}
 
 	public Type getType() {
 		return type;
@@ -22,12 +31,4 @@ public class PaymentDTO {
 		return "PaymentDTO [type=" + type + "]";
 	}
 
-	public PaymentDTO() {
-		super();
-	}
-
-	public PaymentDTO(@NotBlank(message = "Type Should Not be Null or Blank") Type type) {
-		super();
-		this.type = type;
-	}
 }

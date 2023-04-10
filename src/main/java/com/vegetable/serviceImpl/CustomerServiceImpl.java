@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vegetable.dto.CustomerDTO;
 import com.vegetable.entity.Customer;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;
@@ -23,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer addCustomer(Customer customer) throws CustomerAlreadyExistsException {
+	public Customer addCustomer(CustomerDTO customer) throws CustomerAlreadyExistsException {
 		List<Customer> list = customerRepo.findAll();
 		for (Customer c : list) {
 
@@ -36,14 +37,15 @@ public class CustomerServiceImpl implements CustomerService {
 				throw new CustomerAlreadyExistsException("Customer with this phone number already exists.");
 			}
 		}
-		Customer newCustomer = customerRepo.save(customer);
-		return newCustomer;
+		Customer newCustomer = new Customer(null, customer.getCustomerName(), customer.getCustomerEmail(),
+				customer.getCustomerPhone(), customer.getCustomerPassword(), null, null, null);
+		return customerRepo.save(newCustomer);
 	}
 
 	@Override
 	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException {
-		if(customerRepo.findById(customer.getCustomerId()).isEmpty()) {
-			throw new CustomerNotFoundException("Customer Not Found With Id :"+customer.getCustomerId());
+		if (customerRepo.findById(customer.getCustomerId()).isEmpty()) {
+			throw new CustomerNotFoundException("Customer Not Found With Id :" + customer.getCustomerId());
 		}
 		Customer updatedCustomer = customerRepo.save(customer);
 		return updatedCustomer;

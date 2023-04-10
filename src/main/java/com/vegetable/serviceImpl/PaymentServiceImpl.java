@@ -2,7 +2,6 @@ package com.vegetable.serviceImpl;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +27,14 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public Payment addPayment(PaymentDTO payment) {
-		Payment newPayment = new Payment(0l, LocalDate.now(), LocalTime.now(), payment.getType());
+		Payment newPayment = new Payment(null, LocalDate.now(), LocalTime.now(), payment.getType());
 		return paymentRepo.save(newPayment);
 	}
 
 	@Override
 	public Payment updatePayment(Payment payment) throws PaymentNotFoundException {
-		if(paymentRepo.findById(payment.getPaymentId()).isEmpty()) {
-			throw new PaymentNotFoundException("Payment Not Found with Id: "+payment.getPaymentId());
+		if (paymentRepo.findById(payment.getPaymentId()).isEmpty()) {
+			throw new PaymentNotFoundException("Payment Not Found with Id: " + payment.getPaymentId());
 		}
 		Payment updatedPayment = paymentRepo.save(payment);
 		return updatedPayment;
