@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vegetable.dto.PaymentDTO;
+import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.repository.PaymentRepository;
@@ -27,7 +28,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public Payment addPayment(PaymentDTO payment) {
-		Payment newPayment = new Payment(null, LocalDate.now(), LocalTime.now(), payment.getType());
+		Payment newPayment = new Payment(null, LocalDate.now(), LocalTime.now(), payment.getType(), null);
 		return paymentRepo.save(newPayment);
 	}
 
@@ -52,4 +53,12 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentRepo.findAll();
 	}
 
+	@Override
+	public Order convertOrderToPayment(PaymentDTO payment, Long customerId) {
+		Payment newPayment = new Payment();
+		newPayment.setPaymentDate(LocalDate.now());
+		newPayment.setPaymentTime(LocalTime.now());
+		newPayment.setPaymentType(payment.getType());
+		return null;
+	}
 }

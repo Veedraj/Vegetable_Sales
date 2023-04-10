@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.dto.PaymentDTO;
+import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.service.PaymentService;
@@ -52,6 +53,12 @@ public class PaymentController {
 	public ResponseEntity<List<Payment>> deletePayment(@PathVariable("payment-id") Long paymentId) {
 		List<Payment> paymentList = paymentService.deletePayment(paymentId);
 		return new ResponseEntity<List<Payment>>(paymentList, HttpStatus.OK);
+	}
+
+	@PostMapping("/payment/convertToPayment/{customerId}")
+	public ResponseEntity<Order> convertOrderToPayment(@RequestBody PaymentDTO payment,
+			@PathVariable("customerId") Long customerId) {
+		return new ResponseEntity<Order>(paymentService.convertOrderToPayment(payment, customerId), HttpStatus.OK);
 	}
 
 }
