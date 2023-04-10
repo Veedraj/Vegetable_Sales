@@ -1,5 +1,6 @@
 package com.vegetable.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -7,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.vegetable.dto.CustomerDTO;
 import com.vegetable.dto.CustomerLoginDTO;
+import com.vegetable.entity.Cart;
 import com.vegetable.entity.Customer;
+import com.vegetable.entity.Order;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;
 import com.vegetable.exception.WrongPasswordException;
@@ -30,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer addCustomer(Customer customer) throws CustomerAlreadyExistsException {
+	public Customer addCustomer(CustomerDTO customer) throws CustomerAlreadyExistsException {
 		List<Customer> list = customerRepo.findAll();
 		for (Customer c : list) {
 
@@ -43,14 +46,16 @@ public class CustomerServiceImpl implements CustomerService {
 				throw new CustomerAlreadyExistsException("Customer with this phone number already exists.");
 			}
 		}
-		Customer newCustomer = customerRepo.save(customer);
-		return newCustomer;
+		Customer newCustomer = new Customer(null, customer.getCustomerName(), customer.getCustomerEmail(),
+				customer.getCustomerPhone(), customer.getCustomerPassword(), null, null, null, new Cart(),
+				new ArrayList<Order>());
+		return customerRepo.save(newCustomer);
 	}
 
 	@Override
 	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException {
-		if(customerRepo.findById(customer.getCustomerId()).isEmpty()) {
-			throw new CustomerNotFoundException("Customer Not Found With Id :"+customer.getCustomerId());
+		if (customerRepo.findById(customer.getCustomerId()).isEmpty()) {
+			throw new CustomerNotFoundException("Customer Not Found With Id :" + customer.getCustomerId());
 		}
 		Customer updatedCustomer = customerRepo.save(customer);
 		return updatedCustomer;

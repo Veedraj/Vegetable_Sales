@@ -12,7 +12,7 @@ import com.vegetable.exception.WrongPasswordException;
 public interface CustomerService {
 	public List<Customer> getAllCustomers();
 
-	public Customer addCustomer(Customer customer) throws CustomerAlreadyExistsException;
+	public Customer addCustomer(CustomerDTO customer) throws CustomerAlreadyExistsException;
 
 	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException ;
 

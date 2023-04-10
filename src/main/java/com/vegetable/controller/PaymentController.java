@@ -2,8 +2,6 @@ package com.vegetable.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +37,7 @@ public class PaymentController {
 	}
 
 	@PutMapping("/payment")
-	public ResponseEntity<Payment> updatePayment(@Valid @RequestBody Payment payment) throws PaymentNotFoundException {
+	public ResponseEntity<Payment> updatePayment(@RequestBody Payment payment) throws PaymentNotFoundException {
 		return new ResponseEntity<Payment>(paymentService.updatePayment(payment), HttpStatus.OK);
 	}
 

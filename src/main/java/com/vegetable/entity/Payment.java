@@ -4,10 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Payment {
@@ -20,6 +24,9 @@ public class Payment {
 	private LocalTime paymentTime;
 	@NotNull(message = "Payment type cannot be null.")
 	private Type paymentType;
+	@JsonBackReference
+	@OneToOne(mappedBy = "payment", fetch = FetchType.LAZY)
+	private Order order;
 
 	public Payment() {
 		super();

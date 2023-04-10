@@ -11,7 +11,7 @@ public class CustomerDTO {
 	@Pattern(regexp = "^[a-zA-z]+$", message = "Customer name should contain only letters")
 	private String customerName;
 	@NotBlank(message = "Customer email cannot be blank")
-	@Email(message = "Customer email should be in valid format")
+	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Customer email should be in valid format")
 	private String customerEmail;
 	@NotBlank(message = "Customer phone cannot be blank")
 	@Pattern(regexp = "^[7-9]{1}[0-9]{9}$", message = "Number should contain only 10 digits ")

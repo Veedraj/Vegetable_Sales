@@ -1,42 +1,58 @@
 package com.vegetable.entity;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table( name = "orders")
-public class Order implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+@Table(name = "orders")
+public class Order {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="order_id")
+	@Column(name = "order_id")
 	private long orderId;
-	
+
 	@NotNull
-	@Column(name="billing_date")
+	@Column(name = "billing_date")
 	private LocalDate billingDate;
-	
+
 	@NotNull
-	@Column(name="billing_amount")
+	@Column(name = "billing_amount")
 	private Double billingAmount;
-	
+
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "customerId")
+	private Customer customer;
+
+	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "payment_id")
+	private Payment payment;
+
 	public Order() {
 		super();
 	}
 
-	public Order(LocalDate billingDate, Double billingAmount) {
+	public Order(LocalDate billingDate, Double billingAmount,Customer customer,Payment payment) {
 		super();
+		this.orderId = orderId;
+		this.customer = customer;
+		this.payment = payment;
 		this.billingDate = billingDate;
 		this.billingAmount = billingAmount;
 	}
@@ -60,10 +76,14 @@ public class Order implements Serializable{
 	public Long getId() {
 		return orderId;
 	}
-	
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", billingDate=" + billingDate + ", billingAmount=" + billingAmount + "]";
 	}
-	
+
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vegetable.config.JwtUtil;
 import com.vegetable.dto.CustomerDTO;
 import com.vegetable.dto.CustomerLoginDTO;
+import com.vegetable.dto.CustomerDTO;
 import com.vegetable.entity.Customer;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;
@@ -76,7 +77,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("/customer")
-	public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) throws CustomerAlreadyExistsException {
+	public ResponseEntity<Customer> addCustomer(@Valid @RequestBody CustomerDTO customer) throws CustomerAlreadyExistsException {
 		return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.OK);
 	}
 
