@@ -53,7 +53,7 @@ public class CustomerController {
                     new UsernamePasswordAuthenticationToken(authRequest.getCustomerEmail(), authRequest.getCustomerPassword())
             );
         } catch (Exception ex) {
-            throw new WrongPasswordException("inavalid username/password");
+            throw new WrongPasswordException("Inavalid Username/Password");
         }
         return jwtUtil.generateToken(authRequest.getCustomerEmail());
     }

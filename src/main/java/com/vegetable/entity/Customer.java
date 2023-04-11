@@ -48,7 +48,7 @@ public class Customer {
 	private Cart cart;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Order> orders = new ArrayList<>();
 
 	public Customer() {

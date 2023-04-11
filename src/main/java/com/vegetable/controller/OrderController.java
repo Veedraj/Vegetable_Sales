@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.dto.OrderDTO;
 import com.vegetable.entity.Order;
+import com.vegetable.exception.CartNotFoundException;
 import com.vegetable.exception.CustomerNotFoundException;
 import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.EmptyCartException;
@@ -62,7 +63,7 @@ public class OrderController{
 	}
 	
 	@PostMapping("/convert-cart-to-order/{customer-id}")
-	public ResponseEntity<Order> convertCartToOrder(@PathVariable("customer-id")Long customerId) throws CustomerNotFoundException, EmptyCartException{
+	public ResponseEntity<Order> convertCartToOrder(@PathVariable("customer-id")Long customerId) throws CustomerNotFoundException, EmptyCartException, CartNotFoundException{
 		Order order = this.orderService.convertCartToOrder(customerId);
 		return new ResponseEntity<Order>(order, HttpStatus.OK);
 	}

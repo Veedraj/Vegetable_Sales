@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vegetable.dto.PaymentDTO;
 import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;
+import com.vegetable.exception.CartNotFoundException;
 import com.vegetable.exception.CustomerNotFoundException;
 import com.vegetable.exception.EmptyCartException;
 import com.vegetable.exception.PaymentNotFoundException;
@@ -59,7 +60,7 @@ public class PaymentController {
 
 	@PostMapping("/payment/convertToPayment/{customerId}")
 	public ResponseEntity<Order> convertOrderToPayment(@RequestBody PaymentDTO payment,
-			@PathVariable("customerId") Long customerId) throws CustomerNotFoundException, EmptyCartException {
+			@PathVariable("customerId") Long customerId) throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
 		return new ResponseEntity<Order>(paymentService.convertOrderToPayment(payment, customerId), HttpStatus.OK);
 	}
 
