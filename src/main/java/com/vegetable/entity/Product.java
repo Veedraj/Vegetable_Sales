@@ -8,36 +8,27 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "product")
 public class Product {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long productId;
-	
+
 	@NotNull(message = "Product name cannot be null")
 	private String productName;
-	
+
 	@NotNull(message = "Product type cannot be null")
 	private String productType;
-	
+
 	@NotNull(message = "Product description cannot be null")
 	private String productDescription;
-	
+
 	@NotNull(message = "Product price cannot be null")
-	@Min(value = 1,message = "Price should be greater than 0")
+	@Min(value = 1, message = "Price should be greater than 0")
 	private Double productPrice;
-	
+
 	@NotNull(message = "Product image cannot be null")
 	private String productImage;
 
@@ -95,6 +86,5 @@ public class Product {
 				+ ", productDescription=" + productDescription + ", productPrice=" + productPrice + ", productImage="
 				+ productImage + "]";
 	}
-	
-	
+
 }
