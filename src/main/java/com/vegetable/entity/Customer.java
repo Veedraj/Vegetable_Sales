@@ -19,20 +19,18 @@ public class Customer {
 	@Pattern(regexp = "^[a-zA-z]+$", message = "Customer name should contain only letters")
 	private String customerName;
 	@NotBlank(message = "Customer email cannot be blank")
-	@Pattern(regexp = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/", message = "Customer email should be in valid format")
+	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Customer email should be in valid format")
 	private String customerEmail;
 	@NotBlank(message = "Customer phone cannot be blank")
 	@Pattern(regexp = "^[7-9]{1}[0-9]{9}$", message = "Number should contain only 10 digits ")
 	private String customerPhone;
 	@NotBlank(message = "Customer password cannot be blank")
 	private String customerPassword;
-	@NotBlank(message = "Customer address should not be blank")
-	@Size(min = 5, max = 50)
+	@Size(min = 5, max = 60)
 	private String customerAddress;
-	@NotNull(message = "Pincode cannot be null")
-	@Pattern(regexp = "^[1-9]{1}[0-9]{2}\\s{0, 1}[0-9]{3}$", message = "Pincode must be of 6 digits and should not start with 0")
-	private Integer customerPincode;
-	@NotBlank(message = "Customer city cannot be null")
+	@Pattern(regexp = "^[1-9]{1}[0-9]{2}[0-9]{3}$", message = "Pincode must be of 6 digits and should not start with 0")
+	private String customerPincode;
+	@Size(min = 2, max = 30)
 	private String customerCity;
 
 	public Customer() {
@@ -41,12 +39,12 @@ public class Customer {
 
 	public Customer(Long customerId,
 			@NotEmpty(message = "Customer name should not be Empty") @Pattern(regexp = "^[a-zA-z]+$", message = "Customer name should contain only letters") String customerName,
-			@NotBlank(message = "Customer email cannot be blank") @Pattern(regexp = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/", message = "Customer email should be in valid format") String customerEmail,
+			@NotBlank(message = "Customer email cannot be blank") @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Customer email should be in valid format") String customerEmail,
 			@NotBlank(message = "Customer phone cannot be blank") @Pattern(regexp = "^[7-9]{1}[0-9]{9}$", message = "Number should contain only 10 digits ") String customerPhone,
 			@NotBlank(message = "Customer password cannot be blank") String customerPassword,
-			@NotBlank(message = "Customer address should not be blank") @Size(min = 5, max = 50) String customerAddress,
-			@NotNull(message = "Pincode cannot be null") @Pattern(regexp = "^[1-9]{1}[0-9]{2}\\s{0, 1}[0-9]{3}$", message = "Pincode must be of 6 digits and should not start with 0") Integer customerPincode,
-			@NotBlank(message = "Customer city cannot be null") String customerCity) {
+			@Size(min = 5, max = 60) String customerAddress,
+			@Pattern(regexp = "^[1-9]{1}[0-9]{2}[0-9]{3}$", message = "Pincode must be of 6 digits and should not start with 0") String customerPincode,
+			@Size(min = 2, max = 30) String customerCity) {
 		super();
 		this.customerId = customerId;
 		this.customerName = customerName;
@@ -106,11 +104,11 @@ public class Customer {
 		this.customerAddress = customerAddress;
 	}
 
-	public Integer getCustomerPincode() {
+	public String getCustomerPincode() {
 		return customerPincode;
 	}
 
-	public void setCustomerPincode(Integer customerPincode) {
+	public void setCustomerPincode(String customerPincode) {
 		this.customerPincode = customerPincode;
 	}
 
@@ -121,5 +119,15 @@ public class Customer {
 	public void setCustomerCity(String customerCity) {
 		this.customerCity = customerCity;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", customerEmail="
+				+ customerEmail + ", customerPhone=" + customerPhone + ", customerPassword=" + customerPassword
+				+ ", customerAddress=" + customerAddress + ", customerPincode=" + customerPincode + ", customerCity="
+				+ customerCity + "]";
+	}
+
+	
 
 }
