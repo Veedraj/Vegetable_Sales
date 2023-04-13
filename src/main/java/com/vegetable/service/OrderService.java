@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vegetable.dto.OrderDTO;
 import com.vegetable.entity.Order;
+import com.vegetable.exception.CartNotFoundException;
 import com.vegetable.exception.CustomerNotFoundException;
 import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.EmptyCartException;
@@ -19,6 +20,6 @@ public interface OrderService {
 	public List<Order> getAllOrders();
 	
 	//Business Logic
-	public Order convertCartToOrder(Long customerId)throws CustomerNotFoundException, EmptyCartException ;
+	public Order convertCartToOrder(Long customerId)throws CustomerNotFoundException, EmptyCartException, CartNotFoundException ;
 
 }

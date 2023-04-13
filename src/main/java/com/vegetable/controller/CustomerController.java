@@ -26,6 +26,7 @@ import com.vegetable.dto.CustomerDTO;
 import com.vegetable.entity.Customer;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;
+import com.vegetable.exception.WrongPasswordException;
 import com.vegetable.service.CustomerService;
 
 @RestController
@@ -52,7 +53,7 @@ public class CustomerController {
                     new UsernamePasswordAuthenticationToken(authRequest.getCustomerEmail(), authRequest.getCustomerPassword())
             );
         } catch (Exception ex) {
-            throw new Exception("inavalid username/password");
+            throw new WrongPasswordException("Inavalid Username/Password");
         }
         return jwtUtil.generateToken(authRequest.getCustomerEmail());
     }

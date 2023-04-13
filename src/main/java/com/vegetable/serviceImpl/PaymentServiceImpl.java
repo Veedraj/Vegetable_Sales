@@ -2,19 +2,28 @@ package com.vegetable.serviceImpl;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vegetable.dto.PaymentDTO;
+import com.vegetable.entity.Cart;
+import com.vegetable.entity.CartItem;
+import com.vegetable.entity.Customer;
 import com.vegetable.entity.Order;
+import com.vegetable.entity.PastCartItem;
 import com.vegetable.entity.Payment;
+import com.vegetable.exception.CartNotFoundException;
 import com.vegetable.exception.CustomerNotFoundException;
 import com.vegetable.exception.EmptyCartException;
 import com.vegetable.exception.PaymentNotFoundException;
+import com.vegetable.repository.CustomerRepository;
 import com.vegetable.repository.OrderRepository;
 import com.vegetable.repository.PaymentRepository;
+import com.vegetable.service.CartService;
 import com.vegetable.service.OrderService;
 import com.vegetable.service.PaymentService;
 
@@ -29,6 +38,12 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private CartService cartService;
 
 	@Override
 	public List<Payment> getAllPayments() {
@@ -65,13 +80,28 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public Order convertOrderToPayment(PaymentDTO payment, Long customerId)
-			throws CustomerNotFoundException, EmptyCartException {
+			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
 		Payment newPayment = new Payment();
 		newPayment.setPaymentDate(LocalDate.now());
 		newPayment.setPaymentTime(LocalTime.now());
 		newPayment.setPaymentType(payment.getType());
-		Order order = orderService.convertCartToOrder(customerId);
-		order.setPayment(newPayment);
-		return orderRepository.save(order);
+		Optional<Customer> customer = this.customerRepository.findById(customerId);
+		if(customer.isEmpty()) {
+			throw new CustomerNotFoundException("Customer not Found with Id: "+customerId);
+		}
+		if(customer.get().getCart().getCartItems().size()==0) {
+			throw new EmptyCartException("Empty Cart");
+		}
+		List<PastCartItem> customerCart = new ArrayList<>();
+		for(CartItem c : customer.get().getCart().getCartItems()) {
+			customerCart.add(new PastCartItem(c.getCartItemName(), c.getCartItemPrice(), c.getCartItemQuantity(), c.getCartItemImage()));
+		}
+		Order order = new Order(null, LocalDate.now(), customer.get().getCart().getTotalAmount(),customer.get().getCustomerAddress(), customer.get(), newPayment, customerCart);
+//		customer.get().setCart(new Cart());
+		this.cartService.removeAllFromCart(customer.get().getCart().getCartId());
+		this.customerRepository.save(customer.get());
+		Order newOrder = orderRepository.save(order);
+		customer.get().getOrders().add(newOrder);
+		return newOrder;
 	}
 }
