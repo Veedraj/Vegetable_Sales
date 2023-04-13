@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vegetable.config.JwtUtil;
 import com.vegetable.dto.CustomerDTO;
 import com.vegetable.dto.CustomerLoginDTO;
-import com.vegetable.dto.CustomerDTO;
 import com.vegetable.entity.Customer;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;

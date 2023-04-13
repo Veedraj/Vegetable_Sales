@@ -2,7 +2,6 @@ package com.vegetable.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,9 @@ import com.vegetable.exception.CartNotFoundException;
 import com.vegetable.exception.InvalidCartItemDataException;
 import com.vegetable.service.CartService;
 
-//@CrossOrigin(value = "http://localhost:4200/")
 @RestController
 @RequestMapping("/cart-section")
-
+@CrossOrigin(origins = "http://localhost:4200/")
 public class CartController {
 
 	@Autowired
@@ -37,10 +35,10 @@ public class CartController {
 		Cart cart = cartService.createCart();
 		return ResponseEntity.ok(cart);
 	}
-	
+
 	@PostMapping("add-to-cart/{cart-id}/{product-id}")
-	public ResponseEntity<Cart> addToCart(@PathVariable("cart-id") Long cartId, @PathVariable("product-id") Long productId)
-			throws CartNotFoundException, InvalidCartItemDataException {
+	public ResponseEntity<Cart> addToCart(@PathVariable("cart-id") Long cartId,
+			@PathVariable("product-id") Long productId) throws CartNotFoundException, InvalidCartItemDataException {
 		Cart cart = cartService.addToCart(cartId, productId);
 		return ResponseEntity.ok(cart);
 	}
@@ -55,7 +53,8 @@ public class CartController {
 
 	@DeleteMapping("/{cart-id}/{cart-item-id}")
 	public ResponseEntity<Cart> removeFromCart(@PathVariable("cart-id") Long cartId,
-			@PathVariable("cart-item-id") Long cartItemId) throws CartNotFoundException, CartItemDoesNotExistsException {
+			@PathVariable("cart-item-id") Long cartItemId)
+			throws CartNotFoundException, CartItemDoesNotExistsException {
 		Cart cart = cartService.removeFromCart(cartId, cartItemId);
 		return ResponseEntity.ok(cart);
 	}

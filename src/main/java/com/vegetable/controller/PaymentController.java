@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.vegetable.service.PaymentService;
 
 @RestController
 @RequestMapping("/payment-section")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class PaymentController {
 
 	@Autowired
@@ -60,7 +62,8 @@ public class PaymentController {
 
 	@PostMapping("/payment/convertToPayment/{customerId}")
 	public ResponseEntity<Order> convertOrderToPayment(@RequestBody PaymentDTO payment,
-			@PathVariable("customerId") Long customerId) throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
+			@PathVariable("customerId") Long customerId)
+			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
 		return new ResponseEntity<Order>(paymentService.convertOrderToPayment(payment, customerId), HttpStatus.OK);
 	}
 
