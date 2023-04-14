@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vegetable.dto.PaymentDTO;
-import com.vegetable.entity.Cart;
 import com.vegetable.entity.CartItem;
 import com.vegetable.entity.Customer;
 import com.vegetable.entity.Order;
@@ -24,7 +23,6 @@ import com.vegetable.repository.CustomerRepository;
 import com.vegetable.repository.OrderRepository;
 import com.vegetable.repository.PaymentRepository;
 import com.vegetable.service.CartService;
-import com.vegetable.service.OrderService;
 import com.vegetable.service.PaymentService;
 
 @Service
@@ -34,14 +32,11 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentRepository paymentRepo;
 
 	@Autowired
-	private OrderService orderService;
+	private OrderRepository orderRepository;
 
 	@Autowired
-	private OrderRepository orderRepository;
-	
-	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private CartService cartService;
 
@@ -86,17 +81,19 @@ public class PaymentServiceImpl implements PaymentService {
 		newPayment.setPaymentTime(LocalTime.now());
 		newPayment.setPaymentType(payment.getType());
 		Optional<Customer> customer = this.customerRepository.findById(customerId);
-		if(customer.isEmpty()) {
-			throw new CustomerNotFoundException("Customer not Found with Id: "+customerId);
+		if (customer.isEmpty()) {
+			throw new CustomerNotFoundException("Customer not Found with Id: " + customerId);
 		}
-		if(customer.get().getCart().getCartItems().size()==0) {
+		if (customer.get().getCart().getCartItems().size() == 0) {
 			throw new EmptyCartException("Empty Cart");
 		}
 		List<PastCartItem> customerCart = new ArrayList<>();
-		for(CartItem c : customer.get().getCart().getCartItems()) {
-			customerCart.add(new PastCartItem(c.getCartItemName(), c.getCartItemPrice(), c.getCartItemQuantity(), c.getCartItemImage()));
+		for (CartItem c : customer.get().getCart().getCartItems()) {
+			customerCart.add(new PastCartItem(c.getCartItemName(), c.getCartItemPrice(), c.getCartItemQuantity(),
+					c.getCartItemImage()));
 		}
-		Order order = new Order(null, LocalDate.now(), customer.get().getCart().getTotalAmount(),customer.get().getCustomerAddress(), customer.get(), newPayment, customerCart);
+		Order order = new Order(null, LocalDate.now(), customer.get().getCart().getTotalAmount(),
+				customer.get().getCustomerAddress(), customer.get(), newPayment, customerCart);
 //		customer.get().setCart(new Cart());
 		this.cartService.removeAllFromCart(customer.get().getCart().getCartId());
 		this.customerRepository.save(customer.get());

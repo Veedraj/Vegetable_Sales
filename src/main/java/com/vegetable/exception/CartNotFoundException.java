@@ -1,11 +1,13 @@
 package com.vegetable.exception;
 
-import org.springframework.util.MultiValueMap;
-
-
 public class CartNotFoundException extends Exception {
-  
-    public CartNotFoundException(String message) {
-        super(message);
-    }
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CartNotFoundException(String message) {
+		super(message);
+	}
 }

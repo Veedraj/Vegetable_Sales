@@ -38,7 +38,7 @@ public class CartItem {
 	@ManyToOne
 	@JoinColumn(name = "cartId")
 	private Cart cart;
-	
+
 //	@JsonBackReference
 //	@ManyToOne
 //	@JoinColumn(name = "orderId")
@@ -51,7 +51,7 @@ public class CartItem {
 	public CartItem(Long cartItemId, @NotNull(message = "Item name cannot be null") String cartItemName,
 			@NotNull(message = "Items price cannot be null") @Min(value = 1, message = "Price should be greater than Zero") Double cartItemPrice,
 			@NotNull(message = "Quantity Should be Greater Than Zero") @Min(value = 0, message = "Quantity should be greater than 0") Integer cartItemQuantity,
-			@NotNull(message = "Items image cannot be null") String cartItemImage, Cart cart,Order order) {
+			@NotNull(message = "Items image cannot be null") String cartItemImage, Cart cart, Order order) {
 		super();
 		this.cartItemId = cartItemId;
 		this.cartItemName = cartItemName;
@@ -133,7 +133,7 @@ public class CartItem {
 	public String toString() {
 		return "CartItem [cartItemId=" + cartItemId + ", cartItemName=" + cartItemName + ", cartItemPrice="
 				+ cartItemPrice + ", cartItemQuantity=" + cartItemQuantity + ", cartItemImage=" + cartItemImage
-				+ ", cart=" + cart +  "]";
+				+ ", cart=" + cart + "]";
 	}
 
 }

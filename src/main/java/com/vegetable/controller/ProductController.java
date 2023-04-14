@@ -27,7 +27,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@PostMapping("/product")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) throws ProductAlreadyExistException{
+	public ResponseEntity<Product> addProduct(@RequestBody Product product) throws ProductAlreadyExistException {
 		return new ResponseEntity<Product>(productService.addProduct(product), HttpStatus.OK);
 	}
 
@@ -37,22 +37,25 @@ public class ProductController {
 	}
 
 	@GetMapping("/product/{product-id}")
-	public ResponseEntity<Product> getProductById(@PathVariable("product-id") Long productId) throws ProductNotFoundException{
+	public ResponseEntity<Product> getProductById(@PathVariable("product-id") Long productId)
+			throws ProductNotFoundException {
 		return new ResponseEntity<Product>(productService.getProductById(productId), HttpStatus.OK);
 	}
 
 	@GetMapping("/product/by-name/{product-name}")
-	public ResponseEntity<List<Product>> getProductByName(@PathVariable("product-name") String productName) throws ProductNotFoundException{
+	public ResponseEntity<List<Product>> getProductByName(@PathVariable("product-name") String productName)
+			throws ProductNotFoundException {
 		return new ResponseEntity<List<Product>>(productService.getProductByName(productName), HttpStatus.OK);
 	}
 
 	@PutMapping("/product")
-	public ResponseEntity<Product> updateproduct(@RequestBody Product product) throws ProductAlreadyExistException{
+	public ResponseEntity<Product> updateproduct(@RequestBody Product product) throws ProductAlreadyExistException {
 		return new ResponseEntity<Product>(productService.updateProduct(product), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/product/{product-id}")
-	public ResponseEntity<List<Product>> deleteProductById(@PathVariable("product-id") Long productId) throws ProductNotFoundException{
+	public ResponseEntity<List<Product>> deleteProductById(@PathVariable("product-id") Long productId)
+			throws ProductNotFoundException {
 		List<Product> productList = productService.deleteProductById(productId);
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}

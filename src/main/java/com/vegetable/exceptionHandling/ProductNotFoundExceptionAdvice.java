@@ -13,13 +13,12 @@ import com.vegetable.payload.ErrorDetails;
 
 @ControllerAdvice
 public class ProductNotFoundExceptionAdvice {
-
 	// handle ProductAlreadyExistException exceptions
-		@ExceptionHandler(ProductNotFoundException.class)
-		public ResponseEntity<ErrorDetails> handleProductNotFoundExceptionAdvice(ProductNotFoundException exception,
-				WebRequest webRequest) {
-			ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
-					webRequest.getDescription(false));
-			return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
-		}
+	@ExceptionHandler(ProductNotFoundException.class)
+	public ResponseEntity<ErrorDetails> handleProductNotFoundExceptionAdvice(ProductNotFoundException exception,
+			WebRequest webRequest) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+				webRequest.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
 }

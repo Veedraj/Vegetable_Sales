@@ -29,17 +29,17 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private CartRepository cartRepository;
-	
+
 	@Autowired
 	private CartService cartService;
 
 	@Override
 	public Order createOrder(OrderDTO order) throws DuplicateOrderFoundException {
 		List<Order> list = this.getAllOrders();
-		Order o = new Order(null, LocalDate.now(), order.getBillingAmount(), null, null,null,null);
+		Order o = new Order(null, LocalDate.now(), order.getBillingAmount(), null, null, null, null);
 		for (Order l : list) {
 			if (l.getBillingDate().equals(o.getBillingDate()) && l.getBillingAmount().equals(o.getBillingAmount())) {
 				throw new DuplicateOrderFoundException("Duplicate Order Found...");
@@ -77,7 +77,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order convertCartToOrder(Long customerId) throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
+	public Order convertCartToOrder(Long customerId)
+			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
 		Optional<Customer> customer = this.customerRepository.findById(customerId);
 		if (customer.isEmpty()) {
 			throw new CustomerNotFoundException("Customer not Found with Id: " + customerId);

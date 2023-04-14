@@ -1,6 +1,5 @@
 package com.vegetable.dto;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -29,7 +28,7 @@ public class CustomerDTO {
 			@NotEmpty(message = "Customer name should not be Empty") @Pattern(regexp = "^[a-zA-z]+$", message = "Customer name should contain only letters") String customerName,
 			@NotBlank(message = "Customer email cannot be blank") @Pattern(regexp = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/", message = "Customer email should be in valid format") String customerEmail,
 			@NotBlank(message = "Customer phone cannot be blank") @Pattern(regexp = "^[7-9]{1}[0-9]{9}$", message = "Number should contain only 10 digits ") String customerPhone,
-			@NotBlank(message = "Customer password cannot be blank")@Size(min = 8) String customerPassword) {
+			@NotBlank(message = "Customer password cannot be blank") @Size(min = 8) String customerPassword) {
 		super();
 		this.customerName = customerName;
 		this.customerEmail = customerEmail;

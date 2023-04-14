@@ -27,44 +27,46 @@ import com.vegetable.service.OrderService;
 
 @RestController
 @RequestMapping("/order-section")
-public class OrderController{
+public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
-	
+
 	@PostMapping("/order")
-	public ResponseEntity<Order> postOrder(@Valid @RequestBody OrderDTO order) throws DuplicateOrderFoundException{
-		Order o = orderService.createOrder(order);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+	public ResponseEntity<Order> postOrder(@Valid @RequestBody OrderDTO order) throws DuplicateOrderFoundException {
+		Order orderCreated = orderService.createOrder(order);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/order/{order-id}")
-	public ResponseEntity<Order> putOrder(@Valid @RequestBody OrderDTO order,@PathVariable("order-id")Long orderId) throws OrderNotFoundException{
-		Order o = orderService.updateOrder(order,orderId);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+	public ResponseEntity<Order> putOrder(@Valid @RequestBody OrderDTO order, @PathVariable("order-id") Long orderId)
+			throws OrderNotFoundException {
+		Order orderCreated = orderService.updateOrder(order, orderId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/order/{order-id}")
-	public ResponseEntity<Order> deleteOrder(@PathVariable("order-id")Long orderId) throws OrderNotFoundException{
-		Order o = orderService.deleteOrder(orderId);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+	public ResponseEntity<Order> deleteOrder(@PathVariable("order-id") Long orderId) throws OrderNotFoundException {
+		Order orderCreated = orderService.deleteOrder(orderId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/order/{order-id}")
-	public ResponseEntity<Order> postOrder(@PathVariable("order-id") Long orderId) throws OrderNotFoundException{
-		Order o = orderService.getOrderById(orderId);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+	public ResponseEntity<Order> postOrder(@PathVariable("order-id") Long orderId) throws OrderNotFoundException {
+		Order orderCreated = orderService.getOrderById(orderId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/orders")
-	public ResponseEntity<List<Order>> postOrder(){
-		List<Order> o = orderService.getAllOrders();
-		return new ResponseEntity<List<Order>>(o, HttpStatus.OK);
+	public ResponseEntity<List<Order>> postOrder() {
+		List<Order> orderCreated = orderService.getAllOrders();
+		return new ResponseEntity<List<Order>>(orderCreated, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/convert-cart-to-order/{customer-id}")
-	public ResponseEntity<Order> convertCartToOrder(@PathVariable("customer-id")Long customerId) throws CustomerNotFoundException, EmptyCartException, CartNotFoundException{
-		Order order = this.orderService.convertCartToOrder(customerId);
-		return new ResponseEntity<Order>(order, HttpStatus.OK);
+	public ResponseEntity<Order> convertCartToOrder(@PathVariable("customer-id") Long customerId)
+			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
+		Order orderCreated = this.orderService.convertCartToOrder(customerId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
 }

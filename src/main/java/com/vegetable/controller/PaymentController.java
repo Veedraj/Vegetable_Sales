@@ -60,7 +60,8 @@ public class PaymentController {
 
 	@PostMapping("/payment/convertToPayment/{customerId}")
 	public ResponseEntity<Order> convertOrderToPayment(@RequestBody PaymentDTO payment,
-			@PathVariable("customerId") Long customerId) throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
+			@PathVariable("customerId") Long customerId)
+			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
 		return new ResponseEntity<Order>(paymentService.convertOrderToPayment(payment, customerId), HttpStatus.OK);
 	}
 

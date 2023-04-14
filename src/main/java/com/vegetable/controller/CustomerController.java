@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vegetable.config.JwtUtil;
 import com.vegetable.dto.CustomerDTO;
 import com.vegetable.dto.CustomerLoginDTO;
-import com.vegetable.dto.CustomerDTO;
 import com.vegetable.entity.Customer;
 import com.vegetable.exception.CustomerAlreadyExistsException;
 import com.vegetable.exception.CustomerNotFoundException;
@@ -37,53 +36,52 @@ public class CustomerController {
 	private CustomerService customerService;
 
 	@Autowired
-    private JwtUtil jwtUtil;
-	
+	private JwtUtil jwtUtil;
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/login")
-    public String generateToken(@RequestBody CustomerLoginDTO authRequest) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getCustomerEmail(), authRequest.getCustomerPassword())
-            );
-        } catch (Exception ex) {
-            throw new WrongPasswordException("Inavalid Username/Password");
-        }
-        return jwtUtil.generateToken(authRequest.getCustomerEmail());
-    }
+	public String generateToken(@RequestBody CustomerLoginDTO authRequest) throws Exception {
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getCustomerEmail(),
+					authRequest.getCustomerPassword()));
+		} catch (Exception ex) {
+			throw new WrongPasswordException("Inavalid Username/Password");
+		}
+		return jwtUtil.generateToken(authRequest.getCustomerEmail());
+	}
 
 	@PostMapping("customer-registration")
-	public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDTO customer)
-			throws Exception {
+	public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDTO customer) throws Exception {
 		String password = customer.getCustomerPassword();
 		customer.setCustomerPassword(bCryptPasswordEncoder.encode(customer.getCustomerPassword()));
 		Customer cust = customerService.registerCustomer(customer);
 		String token = null;
-		if(cust!=null) {
-			CustomerLoginDTO regCustomer = new CustomerLoginDTO(customer.getCustomerEmail(),password);
+		if (cust != null) {
+			CustomerLoginDTO regCustomer = new CustomerLoginDTO(customer.getCustomerEmail(), password);
 			token = this.generateToken(regCustomer);
 		}
 		return new ResponseEntity<>(token, HttpStatus.OK);
 	}
-    
+
 	@GetMapping("/customers")
 	public ResponseEntity<List<Customer>> getAllCustomers() {
 		return new ResponseEntity<List<Customer>>(customerService.getAllCustomers(), HttpStatus.OK);
 	}
 
 	@PostMapping("/customer")
-	public ResponseEntity<Customer> addCustomer(@Valid @RequestBody CustomerDTO customer) throws CustomerAlreadyExistsException {
+	public ResponseEntity<Customer> addCustomer(@Valid @RequestBody CustomerDTO customer)
+			throws CustomerAlreadyExistsException {
 		return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.OK);
 	}
 
 	@PutMapping("/customer")
-	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) throws CustomerNotFoundException {
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer)
+			throws CustomerNotFoundException {
 		return new ResponseEntity<Customer>(customerService.updateCustomer(customer), HttpStatus.OK);
 	}
 
