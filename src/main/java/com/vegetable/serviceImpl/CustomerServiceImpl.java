@@ -72,6 +72,16 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public Customer getCustomerByEmail(String email) throws CustomerNotFoundException {
+		try {
+			Customer cust = customerRepo.findByCustomerEmail(email);
+			return cust;
+		} catch (Exception e) {
+			throw new CustomerNotFoundException("Customer with this email does not exists.");
+		}
+	}
+
+	@Override
 	public List<Customer> deleteCustomer(Long customerId) {
 		customerRepo.deleteById(customerId);
 		return customerRepo.findAll();

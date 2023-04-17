@@ -12,16 +12,16 @@ import com.vegetable.repository.ProductRepository;
 import com.vegetable.service.ProductService;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepo;
-	
+
 	@Override
-	public Product addProduct(Product product)throws ProductAlreadyExistException {
+	public Product addProduct(Product product) throws ProductAlreadyExistException {
 		List<Product> findProduct = productRepo.findAll();
-		for(Product p: findProduct) {
-			if(p.getProductName().equals(product.getProductName())){
+		for (Product p : findProduct) {
+			if (p.getProductName().equals(product.getProductName())) {
 				throw new ProductAlreadyExistException("Product already exist");
 			}
 		}
@@ -34,22 +34,21 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product getProductById(Long prodoctId) throws ProductNotFoundException{
+	public Product getProductById(Long prodoctId) throws ProductNotFoundException {
 		try {
-			Product productById= productRepo.findById(prodoctId).get();
+			Product productById = productRepo.findById(prodoctId).get();
 			return productById;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new ProductNotFoundException("No product found");
 		}
 	}
 
 	@Override
-	public List<Product> getProductByName(String productName) throws ProductNotFoundException{
+	public List<Product> getProductByName(String productName) throws ProductNotFoundException {
 		List<Product> productByName = productRepo.findAllByProductName(productName);
-		if(productByName.size()>=1) {
+		if (productByName.size() >= 1) {
 			return productByName;
-		}
-		else {
+		} else {
 			throw new ProductNotFoundException("No product found");
 		}
 	}
@@ -59,13 +58,12 @@ public class ProductServiceImpl implements ProductService{
 		return productRepo.save(product);
 	}
 
-
 	@Override
-	public List<Product> deleteProductById(Long productId)throws ProductNotFoundException {
+	public List<Product> deleteProductById(Long productId) throws ProductNotFoundException {
 		try {
 			productRepo.deleteById(productId);
 			return productRepo.findAll();
-		}catch (Exception e){
+		} catch (Exception e) {
 			throw new ProductNotFoundException("No such product found");
 		}
 	}

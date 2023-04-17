@@ -22,5 +22,5 @@ public interface PaymentService {
 	public List<Payment> deletePayment(Long paymentId);
 
 	public Order convertOrderToPayment(PaymentDTO payment, Long customerId)
-			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException ;
+			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException;
 }

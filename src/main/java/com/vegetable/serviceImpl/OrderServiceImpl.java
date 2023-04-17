@@ -15,10 +15,8 @@ import com.vegetable.exception.CustomerNotFoundException;
 import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.EmptyCartException;
 import com.vegetable.exception.OrderNotFoundException;
-import com.vegetable.repository.CartRepository;
 import com.vegetable.repository.CustomerRepository;
 import com.vegetable.repository.OrderRepository;
-import com.vegetable.service.CartService;
 import com.vegetable.service.OrderService;
 
 @Service
@@ -29,17 +27,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
-	
-	@Autowired
-	private CartRepository cartRepository;
-	
-	@Autowired
-	private CartService cartService;
 
 	@Override
 	public Order createOrder(OrderDTO order) throws DuplicateOrderFoundException {
 		List<Order> list = this.getAllOrders();
-		Order o = new Order(null, LocalDate.now(), order.getBillingAmount(), null, null,null,null);
+		Order o = new Order(null, LocalDate.now(), order.getBillingAmount(), null, null, null, null);
 		for (Order l : list) {
 			if (l.getBillingDate().equals(o.getBillingDate()) && l.getBillingAmount().equals(o.getBillingAmount())) {
 				throw new DuplicateOrderFoundException("Duplicate Order Found...");
@@ -77,7 +69,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order convertCartToOrder(Long customerId) throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
+	public Order convertCartToOrder(Long customerId)
+			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
 		Optional<Customer> customer = this.customerRepository.findById(customerId);
 		if (customer.isEmpty()) {
 			throw new CustomerNotFoundException("Customer not Found with Id: " + customerId);
@@ -86,12 +79,9 @@ public class OrderServiceImpl implements OrderService {
 			throw new EmptyCartException("Cart is Empty");
 		}
 		Order order = null;
-//				new Order(null, LocalDate.now(), customer.get().getCart().getTotalAmount(), customer.get(), null, List.copyOf(customer.get().getCart().getCartItems()));
 		List<Order> customerOrders = customer.get().getOrders();
 		customerOrders.add(order);
-//		this.cartRepository.save(customer.get().getCart());
 		customer.get().setOrders(customerOrders);
-//		cartService.removeAllFromCart(customer.get().getCart().getCartId());
 		customer.get().setCart(new Cart());
 		this.customerRepository.save(customer.get());
 		return order;

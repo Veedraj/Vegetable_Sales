@@ -2,8 +2,6 @@ package com.vegetable.service;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-
 import com.vegetable.entity.Customer;
 import com.vegetable.entity.Order;
 import com.vegetable.entity.Payment;

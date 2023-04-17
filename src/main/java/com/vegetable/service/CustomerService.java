@@ -14,14 +14,16 @@ public interface CustomerService {
 
 	public Customer addCustomer(CustomerDTO customer) throws CustomerAlreadyExistsException;
 
-	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException ;
+	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException;
 
 	public Customer getCustomerById(Long customerId) throws CustomerNotFoundException;
 
 	public List<Customer> deleteCustomer(Long customerId);
-	
-	
+
+	public Customer getCustomerByEmail(String email) throws CustomerNotFoundException;
+
 	// Login & Registration
 	public Customer registerCustomer(CustomerDTO cust) throws CustomerAlreadyExistsException;
-	public Customer login(CustomerLoginDTO cust) throws CustomerNotFoundException , WrongPasswordException;
+
+	public Customer login(CustomerLoginDTO cust) throws CustomerNotFoundException, WrongPasswordException;
 }
