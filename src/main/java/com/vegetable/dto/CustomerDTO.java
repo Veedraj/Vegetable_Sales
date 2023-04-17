@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class CustomerDTO {
 
 	@NotEmpty(message = "Customer name should not be Empty")
-	@Pattern(regexp = "^[a-zA-z]+$", message = "Customer name should contain only letters")
+	@Pattern(regexp = "^[a-zA-Z ]+$", message = "Customer name should contain only letters")
 	private String customerName;
 	@NotBlank(message = "Customer email cannot be blank")
 	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Customer email should be in valid format")
