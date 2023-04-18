@@ -28,12 +28,6 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	@Autowired
-	private CartRepository cartRepository;
-
-	@Autowired
-	private CartService cartService;
-
 	@Override
 	public Order createOrder(OrderDTO order) throws DuplicateOrderFoundException {
 		List<Order> list = this.getAllOrders();
