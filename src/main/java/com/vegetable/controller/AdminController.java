@@ -23,7 +23,6 @@ import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.service.AdminService;
-import com.vegetable.service.CustomerService;
 
 @RestController
 @RequestMapping("/admin")
@@ -33,9 +32,10 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 
-		@GetMaping
-
-			retur	} 
+	@GetMapping("/view/orders")
+	public List<Order> allOrders() throws OrderNotFoundException {
+		return adminService.allOrders();
+	}
 
 	@GetMapping("/view/order/{orderId}")
 	public Order viewOrder(@PathVariable("orderId") long orderId) throws OrderNotFoundException {
@@ -49,55 +49,48 @@ public class AdminController {
 
 	@PutMapping("update/products/{productId}")
 	public ResponseEntity<Product> updateproduct(@RequestBody Product productId) {
-			}
+		return new ResponseEntity<Product>(adminService.updateProductById(productId), HttpStatus.OK);
+	}
 
-	@DeleteMapping("delete/products/{productId
-
+	@DeleteMapping("delete/products/{productId}")
 	public ResponseEntity<List<Product>> deleteProductById(@PathVariable("productId") Long productId)
 			throws ProductNotFoundException {
 		List<Product> productList = adminService.deleteProductById(productId);
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/view/customers")
-	public List<Customer> allCustomers() throws CustomerNotFoundException
-	{
+	public List<Customer> allCustomers() throws CustomerNotFoundException {
 		return adminService.allCustomers();
 	}
-	
-	
+
 	@PutMapping("update/customers/{customerId}")
-	p		retur new
+	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customerId) {
+		return new ResponseEntity<Customer>(adminService.updateCustomerById(customerId), HttpStatus.OK);
+	}
 
-	
-
-	@DeleteMapping("delete/customer/{customerId}") public ResponseEntity<List<Customer>> deleteCustomerById(@PathVariable("customerId") Long customerId) throws CustomerNotFoundException{
+	@DeleteMapping("delete/customer/{customerId}")
+	public ResponseEntity<List<Customer>> deleteCustomerById(@PathVariable("customerId") Long customerId)
+			throws CustomerNotFoundException {
 		List<Customer> customerList = adminService.deleteCustomerById(customerId);
-		
+		return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
+	}
 
 	@GetMapping("/view/payments")
-	public List<Payment> allPayments() throws PaymentNotFoundException 
-	{
-		
+	public List<Payment> allPayments() throws PaymentNotFoundException {
+		return adminService.allPayments();
+	}
 
-	
-	
-			 
 	@PutMapping("update/payments/{paymentId}")
-	public ResponseEntity<Payment> updatePayments(@RequestBody Payment paymentId){
-		
+	public ResponseEntity<Payment> updatePayments(@RequestBody Payment paymentId) {
+		return new ResponseEntity<Payment>(adminService.updatePaymentById(paymentId), HttpStatus.OK);
+	}
 
-	
-	@DeleteMapping("delete/payments/{paymentId}") public ResponseEntity<List<Payment>> deletePaymentById(@PathVariable("paymentId") Long paymentId) throws PaymentNotFoundException{
+	@DeleteMapping("delete/payments/{paymentId}")
+	public ResponseEntity<List<Payment>> deletePaymentById(@PathVariable("paymentId") Long paymentId)
+			throws PaymentNotFoundException {
 		List<Payment> paymentList = adminService.deletePaymentById(paymentId);
-		
+		return new ResponseEntity<List<Payment>>(paymentList, HttpStatus.OK);
+	}
 
-	
- 
-
-	
-			 
-
-	
-
-	
+}
