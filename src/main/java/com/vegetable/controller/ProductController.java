@@ -20,7 +20,7 @@ import com.vegetable.exception.ProductAlreadyExistException;
 import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.service.ProductService;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+
 @RestController
 @RequestMapping("/product-section")
 @CrossOrigin(origins = "http://localhost:4200/")
