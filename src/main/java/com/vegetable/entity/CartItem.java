@@ -16,10 +16,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "cartItems")
 public class CartItem {
 
-//	@ManyToOne
-//	@JoinColumn(name="cartId")
-//	private Cart cart;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cartItemId;
@@ -40,16 +36,8 @@ public class CartItem {
 
 	@JsonBackReference
 	@ManyToOne
-
 	@JoinColumn(name = "cartId")
 	private Cart cart;
-
-	@Override
-	public String toString() {
-		return "CartItem [cartItemId=" + cartItemId + ", cartItemName=" + cartItemName + ", cartItemPrice="
-				+ cartItemPrice + ", cartItemQuantity=" + cartItemQuantity + ", cartItemImage=" + cartItemImage
-				+ ", cart=" + cart + "]";
-	}
 
 	public CartItem() {
 		super();
@@ -67,6 +55,17 @@ public class CartItem {
 		this.cartItemImage = cartItemImage;
 		this.cart = cart;
 	}
+
+//	public CartItem(@NotNull(message = "Item name cannot be null") String cartItemName,
+//			@NotNull(message = "Items price cannot be null") @Min(value = 1, message = "Price should be greater than Zero") Double cartItemPrice,
+//			@NotNull(message = "Quantity Should be Greater Than Zero") @Min(value = 0, message = "Quantity should be greater than 0") Integer cartItemQuantity,
+//			@NotNull(message = "Items image cannot be null") String cartItemImage) {
+//		super();
+//		this.cartItemName = cartItemName;
+//		this.cartItemPrice = cartItemPrice;
+//		this.cartItemQuantity = cartItemQuantity;
+//		this.cartItemImage = cartItemImage;
+//	}
 
 	public Cart getCart() {
 		return cart;
@@ -114,6 +113,13 @@ public class CartItem {
 
 	public void setCartItemImage(String cartItemImage) {
 		this.cartItemImage = cartItemImage;
+	}
+
+	@Override
+	public String toString() {
+		return "CartItem [cartItemId=" + cartItemId + ", cartItemName=" + cartItemName + ", cartItemPrice="
+				+ cartItemPrice + ", cartItemQuantity=" + cartItemQuantity + ", cartItemImage=" + cartItemImage
+				+ ", cart=" + cart +  "]";
 	}
 
 }

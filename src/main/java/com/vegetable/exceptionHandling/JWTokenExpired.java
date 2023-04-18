@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.vegetable.exception.DuplicateOrderFoundException;
+import io.jsonwebtoken.ExpiredJwtException;
 
 @RestControllerAdvice
-public class DuplicateOrderFoundExceptionAdvice {
-
-	@ExceptionHandler(DuplicateOrderFoundException.class)
-	public ResponseEntity<String> orderExceptionHandler(DuplicateOrderFoundException e) {
+public class JWTokenExpired {
+	@ExceptionHandler(ExpiredJwtException.class)
+	public ResponseEntity<String> orderExceptionHandler(ExpiredJwtException e) {
 
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
@@ -33,5 +32,4 @@ public class DuplicateOrderFoundExceptionAdvice {
 		});
 		return errors;
 	}
-
 }

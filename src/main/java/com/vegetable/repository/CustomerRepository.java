@@ -8,4 +8,6 @@ import com.vegetable.entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
+	Customer findByCustomerEmail(String username);
+
 }

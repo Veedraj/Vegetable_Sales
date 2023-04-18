@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.vegetable.exception.DuplicateOrderFoundException;
+import com.vegetable.exception.WrongPasswordException;
 
 @RestControllerAdvice
-public class DuplicateOrderFoundExceptionAdvice {
+public class WrongPasswordExceptionAdvice {
 
-	@ExceptionHandler(DuplicateOrderFoundException.class)
-	public ResponseEntity<String> orderExceptionHandler(DuplicateOrderFoundException e) {
+	@ExceptionHandler(WrongPasswordException.class)
+	public ResponseEntity<String> orderExceptionHandler(WrongPasswordException e) {
 
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}

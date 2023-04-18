@@ -1,14 +1,23 @@
 package com.vegetable.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Customer {
@@ -33,6 +42,15 @@ public class Customer {
 	@Size(min = 2, max = 30)
 	private String customerCity;
 
+	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cart_id")
+	private Cart cart;
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Order> orders = new ArrayList<>();
+
 	public Customer() {
 		super();
 	}
@@ -44,7 +62,7 @@ public class Customer {
 			@NotBlank(message = "Customer password cannot be blank") String customerPassword,
 			@Size(min = 5, max = 60) String customerAddress,
 			@Pattern(regexp = "^[1-9]{1}[0-9]{2}[0-9]{3}$", message = "Pincode must be of 6 digits and should not start with 0") String customerPincode,
-			@Size(min = 2, max = 30) String customerCity) {
+			@Size(min = 2, max = 30) String customerCity, Cart cart, List<Order> orders) {
 		super();
 		this.customerId = customerId;
 		this.customerName = customerName;
@@ -54,6 +72,8 @@ public class Customer {
 		this.customerAddress = customerAddress;
 		this.customerPincode = customerPincode;
 		this.customerCity = customerCity;
+		this.cart = cart;
+		this.orders = orders;
 	}
 
 	public Long getCustomerId() {
@@ -120,14 +140,28 @@ public class Customer {
 		this.customerCity = customerCity;
 	}
 
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", customerEmail="
 				+ customerEmail + ", customerPhone=" + customerPhone + ", customerPassword=" + customerPassword
 				+ ", customerAddress=" + customerAddress + ", customerPincode=" + customerPincode + ", customerCity="
-				+ customerCity + "]";
+				+ customerCity + ", cart=" + cart + ", orders=" + orders + "]";
 	}
-
-	
 
 }

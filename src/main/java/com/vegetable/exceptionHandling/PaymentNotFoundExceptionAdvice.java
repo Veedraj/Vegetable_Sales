@@ -11,22 +11,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.vegetable.exception.OrderNotFoundException;
 import com.vegetable.exception.PaymentNotFoundException;
-
 
 @RestControllerAdvice
 public class PaymentNotFoundExceptionAdvice {
 
 	@ExceptionHandler(PaymentNotFoundException.class)
-	public ResponseEntity<String> orderExceptionHandler(PaymentNotFoundException e) {
-
+	public ResponseEntity<String> paymentNotFoundExceptionHandler(PaymentNotFoundException e) {
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationsExceptionsForOrdersNotFound(MethodArgumentNotValidException e) {
+	public Map<String, String> handleValidationsExceptionsForPaymentNotFound(MethodArgumentNotValidException e) {
 		Map<String, String> errors = new HashMap<String, String>();
 		e.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
