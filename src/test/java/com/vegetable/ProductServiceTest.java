@@ -2,6 +2,9 @@ package com.vegetable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -45,6 +48,12 @@ public class ProductServiceTest {
 		assertEquals(product.getProductPrice(), productService.addProduct(product).getProductPrice());
 		assertEquals(product.getProductDescription(), productService.addProduct(product).getProductDescription());
 		assertEquals(product.getProductImage(), productService.addProduct(product).getProductImage());
+	}
+	
+	public void testGetAllProducts() {
+		Mockito.doReturn(Stream.of(product, product).collect(Collectors.toList())).when(productRepoTest).findAll();
+		assertEquals(Stream.of(product, product).collect(Collectors.toList()), productService.getAllProducts());
+		assertEquals(2, productService.getAllProducts().size());
 	}
 }
 
