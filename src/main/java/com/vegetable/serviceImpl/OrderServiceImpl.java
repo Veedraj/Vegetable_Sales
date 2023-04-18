@@ -97,4 +97,16 @@ public class OrderServiceImpl implements OrderService {
 		this.customerRepository.save(customer.get());
 		return order;
 	}
+
+	@Override
+	public Order getOrderByCustomerEmail(String custEmailId) throws CustomerNotFoundException, OrderNotFoundException {
+		Customer customer = this.customerRepository.findByCustomerEmail(custEmailId);
+		if(customer == null) {
+			throw new CustomerNotFoundException("Customer Not Found with Email Id: "+custEmailId);
+		}
+		if(customer.getOrders().size()==0) {
+			throw new OrderNotFoundException("No Orders For Customer with Email Id: "+custEmailId);
+		}
+		return customer.getOrders().get(customer.getOrders().size()-1);
+	}
 }

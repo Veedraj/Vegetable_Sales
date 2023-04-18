@@ -3,6 +3,7 @@ package com.vegetable.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.BeanIds;
@@ -53,6 +54,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/product-section/products").permitAll()
+				.antMatchers(HttpMethod.OPTIONS,"/order-section/**").permitAll()
+//				.antMatchers(HttpMethod.GET,"/order-section/**").permitAll()
 				.antMatchers("/customer-section/login", "/customer-section/customer-registration").permitAll()
 				.anyRequest().authenticated().and().exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

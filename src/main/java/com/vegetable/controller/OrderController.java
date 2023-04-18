@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.dto.OrderDTO;
+import com.vegetable.entity.Customer;
 import com.vegetable.entity.Order;
 import com.vegetable.exception.CartNotFoundException;
 import com.vegetable.exception.CustomerNotFoundException;
@@ -27,6 +29,7 @@ import com.vegetable.service.OrderService;
 
 @RestController
 @RequestMapping("/order-section")
+@CrossOrigin(origins = "http://localhost:4200")
 public class OrderController {
 
 	@Autowired
@@ -68,5 +71,11 @@ public class OrderController {
 			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
 		Order orderCreated = this.orderService.convertCartToOrder(customerId);
 		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
+	}
+	
+	@GetMapping("/order-by-email/{customer-email-id}")
+	public ResponseEntity<Order> getCustomerOrderByEmailId(@PathVariable("customer-email-id") String customerid)
+			throws CustomerNotFoundException, OrderNotFoundException {
+		return new ResponseEntity<Order>(orderService.getOrderByCustomerEmail(customerid), HttpStatus.OK);
 	}
 }
