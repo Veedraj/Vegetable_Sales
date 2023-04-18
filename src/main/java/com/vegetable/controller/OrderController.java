@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.dto.OrderDTO;
+import com.vegetable.entity.Customer;
 import com.vegetable.entity.Order;
 import com.vegetable.exception.CartNotFoundException;
 import com.vegetable.exception.CustomerNotFoundException;
@@ -28,7 +29,7 @@ import com.vegetable.service.OrderService;
 
 @RestController
 @RequestMapping("/order-section")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class OrderController {
 
 	@Autowired
@@ -36,39 +37,45 @@ public class OrderController {
 
 	@PostMapping("/order")
 	public ResponseEntity<Order> postOrder(@Valid @RequestBody OrderDTO order) throws DuplicateOrderFoundException {
-		Order o = orderService.createOrder(order);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+		Order orderCreated = orderService.createOrder(order);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
 
 	@PutMapping("/order/{order-id}")
 	public ResponseEntity<Order> putOrder(@Valid @RequestBody OrderDTO order, @PathVariable("order-id") Long orderId)
 			throws OrderNotFoundException {
-		Order o = orderService.updateOrder(order, orderId);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+		Order orderCreated = orderService.updateOrder(order, orderId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/order/{order-id}")
 	public ResponseEntity<Order> deleteOrder(@PathVariable("order-id") Long orderId) throws OrderNotFoundException {
-		Order o = orderService.deleteOrder(orderId);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+		Order orderCreated = orderService.deleteOrder(orderId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
 
 	@GetMapping("/order/{order-id}")
 	public ResponseEntity<Order> postOrder(@PathVariable("order-id") Long orderId) throws OrderNotFoundException {
-		Order o = orderService.getOrderById(orderId);
-		return new ResponseEntity<Order>(o, HttpStatus.OK);
+		Order orderCreated = orderService.getOrderById(orderId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
 	}
 
 	@GetMapping("/orders")
 	public ResponseEntity<List<Order>> postOrder() {
-		List<Order> o = orderService.getAllOrders();
-		return new ResponseEntity<List<Order>>(o, HttpStatus.OK);
+		List<Order> orderCreated = orderService.getAllOrders();
+		return new ResponseEntity<List<Order>>(orderCreated, HttpStatus.OK);
 	}
 
 	@PostMapping("/convert-cart-to-order/{customer-id}")
 	public ResponseEntity<Order> convertCartToOrder(@PathVariable("customer-id") Long customerId)
 			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException {
-		Order order = this.orderService.convertCartToOrder(customerId);
-		return new ResponseEntity<Order>(order, HttpStatus.OK);
+		Order orderCreated = this.orderService.convertCartToOrder(customerId);
+		return new ResponseEntity<Order>(orderCreated, HttpStatus.OK);
+	}
+	
+	@GetMapping("/order-by-email/{customer-email-id}")
+	public ResponseEntity<Order> getCustomerOrderByEmailId(@PathVariable("customer-email-id") String customerid)
+			throws CustomerNotFoundException, OrderNotFoundException {
+		return new ResponseEntity<Order>(orderService.getOrderByCustomerEmail(customerid), HttpStatus.OK);
 	}
 }

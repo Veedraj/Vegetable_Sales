@@ -119,7 +119,7 @@ public class CartItem {
 	public String toString() {
 		return "CartItem [cartItemId=" + cartItemId + ", cartItemName=" + cartItemName + ", cartItemPrice="
 				+ cartItemPrice + ", cartItemQuantity=" + cartItemQuantity + ", cartItemImage=" + cartItemImage
-				+ ", cart=" + cart +  "]";
+				+ ", cart=" + cart + "]";
 	}
 
 }

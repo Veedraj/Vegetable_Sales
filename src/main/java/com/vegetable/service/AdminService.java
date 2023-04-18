@@ -12,26 +12,26 @@ import com.vegetable.exception.PaymentNotFoundException;
 import com.vegetable.exception.ProductNotFoundException;
 
 public interface AdminService {
-	
-	public List<Order> allOrders()throws OrderNotFoundException;
-	
-	public Order viewOrder(long orderId)throws OrderNotFoundException;
-	
+
+	public List<Order> allOrders() throws OrderNotFoundException;
+
+	public Order viewOrder(long orderId) throws OrderNotFoundException;
+
 	public List<Product> allProducts() throws ProductNotFoundException;
 
 	public Product updateProductById(Product product);
 
-	public List<Product> deleteProductById(Long productId)throws ProductNotFoundException;
-	
+	public List<Product> deleteProductById(Long productId) throws ProductNotFoundException;
+
 	public List<Customer> allCustomers() throws CustomerNotFoundException;
-	
+
 	public Customer updateCustomerById(Customer customer);
-	
+
 	public List<Customer> deleteCustomerById(Long customerId);
-	
+
 	public List<Payment> allPayments() throws PaymentNotFoundException;
-	
+
 	public Payment updatePaymentById(Payment paymentId);
-	
+
 	public List<Payment> deletePaymentById(Long paymentId);
 }

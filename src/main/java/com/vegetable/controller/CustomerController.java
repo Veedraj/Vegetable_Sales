@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vegetable.config.JwtUtil;
+import com.vegetable.dto.AuthenticationTokenDTO;
 import com.vegetable.dto.CustomerDTO;
 import com.vegetable.dto.CustomerLoginDTO;
 import com.vegetable.entity.Customer;
@@ -30,6 +32,7 @@ import com.vegetable.service.CustomerService;
 
 @RestController
 @RequestMapping("/customer-section")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CustomerController {
 
 	@Autowired
@@ -45,27 +48,31 @@ public class CustomerController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/login")
-	public String generateToken(@RequestBody CustomerLoginDTO authRequest) throws Exception {
+	public ResponseEntity<AuthenticationTokenDTO> generateToken(@RequestBody CustomerLoginDTO authRequest)
+			throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getCustomerEmail(),
 					authRequest.getCustomerPassword()));
 		} catch (Exception ex) {
 			throw new WrongPasswordException("Inavalid Username/Password");
 		}
-		return jwtUtil.generateToken(authRequest.getCustomerEmail());
+		AuthenticationTokenDTO authenticationTokenDTO = new AuthenticationTokenDTO(
+				jwtUtil.generateToken(authRequest.getCustomerEmail()));
+		return new ResponseEntity<AuthenticationTokenDTO>(authenticationTokenDTO, HttpStatus.OK);
 	}
 
 	@PostMapping("customer-registration")
-	public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDTO customer) throws Exception {
+	public ResponseEntity<AuthenticationTokenDTO> registerCustomer(@Valid @RequestBody CustomerDTO customer)
+			throws Exception {
 		String password = customer.getCustomerPassword();
 		customer.setCustomerPassword(bCryptPasswordEncoder.encode(customer.getCustomerPassword()));
 		Customer cust = customerService.registerCustomer(customer);
-		String token = null;
+		ResponseEntity<AuthenticationTokenDTO> authenticationTokenDTO = null;
 		if (cust != null) {
 			CustomerLoginDTO regCustomer = new CustomerLoginDTO(customer.getCustomerEmail(), password);
-			token = this.generateToken(regCustomer);
+			authenticationTokenDTO = this.generateToken(regCustomer);
 		}
-		return new ResponseEntity<>(token, HttpStatus.OK);
+		return authenticationTokenDTO;
 	}
 
 	@GetMapping("/customers")

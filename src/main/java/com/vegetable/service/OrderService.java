@@ -27,4 +27,5 @@ public interface OrderService {
 	public Order convertCartToOrder(Long customerId)
 			throws CustomerNotFoundException, EmptyCartException, CartNotFoundException;
 
+	public Order getOrderByCustomerEmail(String custEmailId) throws CustomerNotFoundException, OrderNotFoundException;
 }

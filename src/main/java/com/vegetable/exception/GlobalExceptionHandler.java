@@ -1,7 +1,5 @@
 package com.vegetable.exception;
 
-
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,24 +8,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Cart Global Exceptions
+	// Cart Global Exceptions
 
-    @ExceptionHandler(value = CartNotFoundException.class)
-    public ResponseEntity<Object> handleCartNotFoundException(CartNotFoundException exception) {
-        return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
+	@ExceptionHandler(value = CartNotFoundException.class)
+	public ResponseEntity<Object> handleCartNotFoundException(CartNotFoundException exception) {
+		return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.NOT_FOUND);
+	}
 
-    @ExceptionHandler(value = CartItemDoesNotExistsException.class)
-    public ResponseEntity<Object> handleCartItemDoesNotExistsException(CartItemDoesNotExistsException exception) {
-        return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
+	@ExceptionHandler(value = CartItemDoesNotExistsException.class)
+	public ResponseEntity<Object> handleCartItemDoesNotExistsException(CartItemDoesNotExistsException exception) {
+		return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.NOT_FOUND);
+	}
 
-    @ExceptionHandler(value = InvalidCartItemDataException.class)
-    public ResponseEntity<Object> handleInvalidCartItemDataException(InvalidCartItemDataException exception) {
-        return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.CONFLICT);
-    }
+	@ExceptionHandler(value = InvalidCartItemDataException.class)
+	public ResponseEntity<Object> handleInvalidCartItemDataException(InvalidCartItemDataException exception) {
+		return new ResponseEntity<Object>(exception.getMessage(), HttpStatus.CONFLICT);
+	}
 
-    // Dish Global Exceptions
+	// Dish Global Exceptions
 
 //    @ExceptionHandler(value= DishIdNotFoundException.class)
 //    public ResponseEntity<Object> handleDishIdNotFoundException(DishIdNotFoundException exception){

@@ -37,7 +37,7 @@ public class Order {
 	@NotNull
 	@Column(name = "billing_amount")
 	private Double billingAmount;
-	
+
 	@Column(name = "billing_address")
 	private String billingAddress;
 
@@ -50,17 +50,17 @@ public class Order {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "payment_id")
 	private Payment payment;
-		
+
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PastCartItem> cartItems = new ArrayList<>();
-	
+
 	public Order() {
 		super();
 	}
 
-	public Order(Long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount,
-			String billingAddress, Customer customer, Payment payment, List<PastCartItem> cartItems) {
+	public Order(Long orderId, @NotNull LocalDate billingDate, @NotNull Double billingAmount, String billingAddress,
+			Customer customer, Payment payment, List<PastCartItem> cartItems) {
 		super();
 		this.orderId = orderId;
 		this.billingDate = billingDate;

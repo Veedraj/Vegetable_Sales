@@ -8,7 +8,7 @@ public class OrderDTO {
 
 	@NotNull
 	private Double billingAmount;
-	
+
 	@NotNull
 	private Status status;
 

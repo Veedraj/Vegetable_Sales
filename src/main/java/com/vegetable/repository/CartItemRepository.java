@@ -7,8 +7,8 @@ import com.vegetable.entity.Cart;
 import com.vegetable.entity.CartItem;
 
 @Repository
-public interface CartItemRepository extends JpaRepository<CartItem ,Long>{
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
 	void deleteAllByCart(Cart cart);
-	
+
 }

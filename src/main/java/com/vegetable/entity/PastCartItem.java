@@ -27,7 +27,7 @@ public class PastCartItem {
 
 	@NotNull(message = "Items image cannot be null")
 	private String cartItemImage;
-	
+
 	public PastCartItem() {
 		super();
 	}
