@@ -11,20 +11,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.vegetable.exception.DuplicateOrderFoundException;
+import com.vegetable.exception.CustomerAlreadyExistsException;
 
 @RestControllerAdvice
-public class DuplicateOrderFoundExceptionAdvice {
+public class CustomerAlreadyExistsExceptionAdvice {
 
-	@ExceptionHandler(DuplicateOrderFoundException.class)
-	public ResponseEntity<String> orderExceptionHandler(DuplicateOrderFoundException e) {
-
+	@ExceptionHandler(CustomerAlreadyExistsException.class)
+	public ResponseEntity<String> customerAlreadyExistsExceptionHandler(CustomerAlreadyExistsException e) {
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationsExceptionsForOrdersNotFound(MethodArgumentNotValidException e) {
+	public Map<String, String> handleValidationsExceptionsForCustomerAlreadyExists(MethodArgumentNotValidException e) {
 		Map<String, String> errors = new HashMap<String, String>();
 		e.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
@@ -33,5 +32,4 @@ public class DuplicateOrderFoundExceptionAdvice {
 		});
 		return errors;
 	}
-
 }

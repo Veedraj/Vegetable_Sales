@@ -12,21 +12,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.vegetable.exception.CustomerNotFoundException;
-import com.vegetable.exception.DuplicateOrderFoundException;
-
 
 @RestControllerAdvice
 public class CustomerNotFoundExceptionAdvice {
 
 	@ExceptionHandler(CustomerNotFoundException.class)
-	public ResponseEntity<String> orderExceptionHandler(CustomerNotFoundException e) {
-
+	public ResponseEntity<String> customerNotFoundExceptionHandler(CustomerNotFoundException e) {
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationsExceptionsForOrdersNotFound(MethodArgumentNotValidException e) {
+	public Map<String, String> handleValidationsExceptionsForCustomerNotFound(MethodArgumentNotValidException e) {
 		Map<String, String> errors = new HashMap<String, String>();
 		e.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
@@ -34,4 +31,5 @@ public class CustomerNotFoundExceptionAdvice {
 			errors.put(fieldName, errorMsg);
 		});
 		return errors;
-	}}
+	}
+}

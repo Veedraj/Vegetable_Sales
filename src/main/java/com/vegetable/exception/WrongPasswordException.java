@@ -1,14 +1,13 @@
 package com.vegetable.exception;
 
-public class PaymentNotFoundException extends Exception {
+public class WrongPasswordException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public PaymentNotFoundException(String message) {
+	public WrongPasswordException(String message) {
 		super(message);
 	}
-
 }

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.vegetable.exception.DuplicateOrderFoundException;
+import com.vegetable.exception.EmptyCartException;
 
 @RestControllerAdvice
-public class DuplicateOrderFoundExceptionAdvice {
+public class EmptyCartExceptionHandling {
 
-	@ExceptionHandler(DuplicateOrderFoundException.class)
-	public ResponseEntity<String> orderExceptionHandler(DuplicateOrderFoundException e) {
+	@ExceptionHandler(EmptyCartException.class)
+	public ResponseEntity<String> orderExceptionHandler(EmptyCartException e) {
 
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}

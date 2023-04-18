@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.vegetable.exception.DuplicateOrderFoundException;
 import com.vegetable.exception.OrderNotFoundException;
 
 @RestControllerAdvice
 public class OrderNotFoundExceptionAdvice {
-	
+
 	@ExceptionHandler(OrderNotFoundException.class)
 	public ResponseEntity<String> orderExceptionHandler(OrderNotFoundException e) {
 
@@ -34,5 +33,5 @@ public class OrderNotFoundExceptionAdvice {
 		});
 		return errors;
 	}
-	
+
 }
