@@ -59,7 +59,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/admin-section/**").permitAll()
 				.antMatchers(HttpMethod.PUT, "/admin-section/**").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/admin-section/**").permitAll()
-				.antMatchers(HttpMethod.POST,"/cart-section/**").permitAll()
+//				.antMatchers(HttpMethod.GET,"/order-section/**").permitAll()
 				.antMatchers("/customer-section/login", "/customer-section/customer-registration").permitAll()
 				.antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/v2/api-docs/**", "/swagger-resources/**")
 				.permitAll().anyRequest().authenticated().and().exceptionHandling().and().sessionManagement()

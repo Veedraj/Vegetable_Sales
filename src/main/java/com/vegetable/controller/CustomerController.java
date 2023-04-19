@@ -100,7 +100,7 @@ public class CustomerController {
 
 	@GetMapping("/customer/by-email/{customer-email}")
 	public ResponseEntity<Customer> getCustomerByEmail(@PathVariable("customer-email") String customerEmail)
-			throws CustomerNotFoundException {	
+			throws CustomerNotFoundException {
 		return new ResponseEntity<Customer>(customerService.getCustomerByEmail(customerEmail), HttpStatus.OK);
 	}
 
