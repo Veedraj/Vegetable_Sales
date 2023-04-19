@@ -51,7 +51,6 @@ public class Order {
 	@JoinColumn(name = "payment_id")
 	private Payment payment;
 
-	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PastCartItem> cartItems = new ArrayList<>();
 
