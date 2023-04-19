@@ -25,7 +25,7 @@ import com.vegetable.exception.ProductNotFoundException;
 import com.vegetable.service.AdminService;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin-section")
 @CrossOrigin(origins = "http://localhost:4200/")
 public class AdminController {
 
