@@ -115,10 +115,10 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Boolean checkAddress(String customerEmailId) throws CustomerNotFoundException {
 		Customer customer = this.customerRepo.findByCustomerEmail(customerEmailId);
-		if(customer == null) {
-			throw new CustomerNotFoundException("Customer Not Found With Email Id :"+customerEmailId);
+		if (customer == null) {
+			throw new CustomerNotFoundException("Customer Not Found With Email Id :" + customerEmailId);
 		}
-		return customer.getCustomerAddress().isEmpty();
+		return customer.getCustomerAddress() == null;
 	}
 
 }

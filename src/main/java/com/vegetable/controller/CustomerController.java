@@ -109,9 +109,10 @@ public class CustomerController {
 		List<Customer> customerList = customerService.deleteCustomer(customerId);
 		return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
 	}
-	
-	@PostMapping("customer/check-address/{customer-id}")
-	public ResponseEntity<Boolean> getCustomerAddress(@PathVariable("customer-id")String customerEmailId) throws CustomerNotFoundException{
+
+	@GetMapping("customer/check-address/{customer-email-id}")
+	public ResponseEntity<Boolean> getCustomerAddress(@PathVariable("customer-email-id") String customerEmailId)
+			throws CustomerNotFoundException {
 		Boolean response = this.customerService.checkAddress(customerEmailId);
 		return new ResponseEntity<Boolean>(response, HttpStatus.OK);
 	}
