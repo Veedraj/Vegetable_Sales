@@ -112,4 +112,13 @@ public class CustomerServiceImpl implements CustomerService {
 		return this.customerRepo.findByCustomerEmail(cust.getCustomerEmail());
 	}
 
+	@Override
+	public Boolean checkAddress(String customerEmailId) throws CustomerNotFoundException {
+		Customer customer = this.customerRepo.findByCustomerEmail(customerEmailId);
+		if (customer == null) {
+			throw new CustomerNotFoundException("Customer Not Found With Email Id :" + customerEmailId);
+		}
+		return customer.getCustomerAddress() == null;
+	}
+
 }

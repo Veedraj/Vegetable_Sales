@@ -26,4 +26,6 @@ public interface CustomerService {
 	public Customer registerCustomer(CustomerDTO cust) throws CustomerAlreadyExistsException;
 
 	public Customer login(CustomerLoginDTO cust) throws CustomerNotFoundException, WrongPasswordException;
+	
+	public Boolean checkAddress(String customerEmailId)throws CustomerNotFoundException;
 }

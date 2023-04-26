@@ -100,7 +100,7 @@ public class CustomerController {
 
 	@GetMapping("/customer/by-email/{customer-email}")
 	public ResponseEntity<Customer> getCustomerByEmail(@PathVariable("customer-email") String customerEmail)
-			throws CustomerNotFoundException {	
+			throws CustomerNotFoundException {
 		return new ResponseEntity<Customer>(customerService.getCustomerByEmail(customerEmail), HttpStatus.OK);
 	}
 
@@ -108,6 +108,13 @@ public class CustomerController {
 	public ResponseEntity<List<Customer>> deleteCustomer(@PathVariable("customer-id") Long customerId) {
 		List<Customer> customerList = customerService.deleteCustomer(customerId);
 		return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
+	}
+
+	@GetMapping("customer/check-address/{customer-email-id}")
+	public ResponseEntity<Boolean> getCustomerAddress(@PathVariable("customer-email-id") String customerEmailId)
+			throws CustomerNotFoundException {
+		Boolean response = this.customerService.checkAddress(customerEmailId);
+		return new ResponseEntity<Boolean>(response, HttpStatus.OK);
 	}
 
 }
